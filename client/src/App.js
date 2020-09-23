@@ -3,8 +3,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
-import CourseDetail from './components/courseDetail'
+import Coursedetail from './components/courseDetail'
 import './global.css';
 import Header from './components/home';
 import Courses from './components/courses';
@@ -22,7 +23,7 @@ class App extends Component{
                 <Courses />
               </Route>
               <Route path="/courses/:id">
-                <CourseDetail />
+                <Coursedetail />
               </Route>
             </Switch>
           </div>

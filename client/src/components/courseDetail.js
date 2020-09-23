@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CourseDetail() {
+function Coursedetail() {
     
     
     return(
@@ -57,4 +57,4 @@ function CourseDetail() {
     );
 }
 
-export default CourseDetail
+export default Coursedetail
