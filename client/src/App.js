@@ -1,24 +1,23 @@
-import React from 'react';
+import React, {Component, useState} from 'react';
 import './global.css';
+import Header from './components/home';
+import Courses from './components/courses';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component{
+
+  render() {
+    return (
+    <div id="root">
+      <div>
+        <Header />
+        <hr />
+        <Courses />
+      </div>
     </div>
-  );
+    );
+  }
 }
+  
+
 
 export default App;
