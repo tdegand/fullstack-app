@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function Coursedetail() {
     
@@ -7,8 +8,11 @@ function Coursedetail() {
         <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><a className="button" href="update-course.html">Update Course</a><a className="button" href="#">Delete Course</a></span><a
-                className="button button-secondary" href="index.html">Return to List</a></div>
+            <div className="grid-100"><span>
+              <Link className="button" to="/">Update Course</Link>
+              <Link className="button" to="/">Delete Course</Link></span>
+              <Link className="button button-secondary" to="/">Return to List</Link>
+            </div>
           </div>
         </div>
         <div className="bounds course--detail">

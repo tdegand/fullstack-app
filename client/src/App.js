@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,10 +19,10 @@ class App extends Component{
           <div>
             <Header />
             <Switch>
-              <Route path="/">
+              <Route exact path="/">
                 <Courses />
               </Route>
-              <Route path="/courses/:id">
+              <Route exact path="/courses/:id">
                 <Coursedetail />
               </Route>
             </Switch>
