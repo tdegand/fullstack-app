@@ -30,10 +30,10 @@ class App extends Component{
               <Route exact path="/">
                 <Courses />
               </Route>
-              <Route path="/courses/:id">
+              <Route exact path="/courses/:id">
                 <Coursedetail />
               </Route>
-              <Route path="/courses/create">
+              <Route exact path="/courses/create">
                 <CreateCourse />
               </Route>
               <Route path="/courses/:id/update">
