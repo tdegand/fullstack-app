@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
+import Header from './components/header';
+import Courses from './components/courses';
+import Coursedetail from './components/courseDetail'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import Coursedetail from './components/courseDetail'
+
 import './global.css';
-import Header from './components/home';
-import Courses from './components/courses';
+
 
 class App extends Component{
+  
 
   render() {
     return (
