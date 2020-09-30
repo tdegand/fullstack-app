@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import Header from './components/header';
 import Courses from './components/courses';
-import Coursedetail from './components/courseDetail'
+import Coursedetail from './components/courseDetail';
+import CreateCourse from './components/createCourse';
+import UpdateCourse from './components/updateCourse';
+import UserSignIn from './components/userSignIn';
+import UserSignUp from './components/userSignUp';
+import UserSignOut from './components/userSignOut';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,8 +30,23 @@ class App extends Component{
               <Route exact path="/">
                 <Courses />
               </Route>
-              <Route exact path="/courses/:id">
+              <Route path="/courses/:id">
                 <Coursedetail />
+              </Route>
+              <Route path="/courses/create">
+                <CreateCourse />
+              </Route>
+              <Route path="/courses/:id/update">
+                <UpdateCourse />
+              </Route>
+              <Route path="/signin">
+                <UserSignIn />
+              </Route>
+              <Route path="/signup">
+                <UserSignUp />
+              </Route>
+              <Route path="/signout">
+                <UserSignOut />
               </Route>
             </Switch>
           </div>

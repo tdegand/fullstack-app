@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreatCourse = () => {
+const CreateCourse = () => {
 
     return(
         <div className="bounds course--detail">
@@ -16,6 +16,7 @@ const CreatCourse = () => {
               </ul>
             </div>
           </div>
+          
           <form>
             <div className="grid-66">
               <div className="course--header">
@@ -48,4 +49,4 @@ const CreatCourse = () => {
     );
 }
 
-export default CreatCourse
+export default CreateCourse
