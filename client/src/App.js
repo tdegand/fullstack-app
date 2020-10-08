@@ -7,14 +7,14 @@ import UpdateCourse from './components/updateCourse';
 import UserSignIn from './components/userSignIn';
 import UserSignUp from './components/userSignUp';
 import UserSignOut from './components/userSignOut';
+import withContext from './context';
+import './global.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import withContext from './context';
 
-import './global.css';
 
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
