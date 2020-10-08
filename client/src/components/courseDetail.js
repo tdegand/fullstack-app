@@ -7,17 +7,22 @@ const Coursedetail = () => {
   //Uses a react hook to set and store state
   const [values, setValues] = useState({
     course: [],
+    owner: []
 })
 
   useEffect(() => {
     const path = window.location.pathname.split('/');
-    console.log(path)
     const id = path[2];
 
     axios.get(`http://localhost:5000/api/courses/${id}`)
     .then(res => {
       const course = res.data.course
-      setValues({ course })
+      const owner = res.data.course.owner
+      setValues((values) => ({
+        ...values,
+        course: course,
+        owner: owner
+      }))
     })
     .catch(res => console.log('error', res))
   }, [])
@@ -39,7 +44,7 @@ const Coursedetail = () => {
             <div className="course--header">
               <h4 className="course--label">Course</h4>
               <h3 className="course--title">{values.course.title}</h3>
-              <p>By Joe Smith</p>
+              <p>{`By ${values.owner.firstName} ${values.owner.lastName}`}</p>
             </div>
             <div className="course--description">
               <p>{values.course.description}</p>

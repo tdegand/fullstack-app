@@ -7,18 +7,22 @@ const UpdateCourse = () => {
   //Uses a react hook to set and store state
   const [values, setValues] = useState({
     course: [],
+    owner: [],
 })
 
   useEffect(() => {
     const path = window.location.pathname.split('/');
-    console.log(path)
     const id = path[2];
 
     axios.get(`http://localhost:5000/api/courses/${id}`)
     .then(res => {
       const course = res.data.course
-      console.log(course.owner.firstName)
-      setValues({ course })
+      const owner = res.data.course.owner
+      setValues((values) => ({
+        ...values,
+        course: course,
+        owner: owner
+      }))
     })
     .catch(res => console.log('error', res))
   }, [])
@@ -33,7 +37,7 @@ const UpdateCourse = () => {
                 <h4 className="course--label">Course</h4>
                 <div><input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..."
                     value={values.course.title} /></div>
-                <p>by Joe Smith</p>
+                <p>{`By ${values.owner.firstName} ${values.owner.lastName}`}</p>
               </div>
               <div className="course--description">
               <div><textarea id="description" name="description" className="" placeholder={values.course.description}></textarea></div>

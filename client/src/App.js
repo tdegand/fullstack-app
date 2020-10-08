@@ -11,10 +11,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
+import withContext from './context';
 
 import './global.css';
+
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 
 
 class App extends Component{
@@ -39,15 +43,9 @@ class App extends Component{
               <Route path="/courses/:id/update">
                 <UpdateCourse />
               </Route>
-              <Route path="/signin">
-                <UserSignIn />
-              </Route>
-              <Route path="/signup">
-                <UserSignUp />
-              </Route>
-              <Route path="/signout">
-                <UserSignOut />
-              </Route>
+              <Route path="/signin" component={UserSignInWithContext}></Route>
+              <Route path="/signup" component={UserSignUpWithContext}></Route>
+              <Route path="/signout" component={UserSignOutWithContext}></Route>
             </Switch>
           </div>
         </div>
