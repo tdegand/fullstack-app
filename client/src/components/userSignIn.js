@@ -7,31 +7,22 @@ const UserSignIn = () => {
 
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isError, setIsError] = useState(false);
-	const [userName, setUserName] = useState({
-		userName: ""
-	});
-	const [password, setPassword] = useState({
-		password: ""
-	});
+	const [userName, setUserName] = useState("");
+	const [password, setPassword] = useState("");
 	const { setAuthTokens } = useAuth();
-	const encodedCredentials = btoa(`${{ userName }}:${{ password }}`);
+	const encodedCredentials = btoa(`${userName}:${password}`);
 
-	const config = {
+	const options = {
         headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Basic ${encodedCredentials}`
+			'Authorization': `Basic ${encodedCredentials}`,
         },
 	};
-	let data = {
-		'HTTP_CONTENT_LANGUAGE': "charset=utf-8"
-	  }
-  
 	const getLogin = () => {
-	  axios.get("http://localhost:5000/api/users", data, config, {
-		userName,
-		password
+	  axios.get("http://localhost:5000/api/users", options, {
 	  }).then(result => {
 		if (result.status === 200) {
+			console.log(result.data)
 		  setAuthTokens(result.data);
 		  setLoggedIn(true);
 		} else {
