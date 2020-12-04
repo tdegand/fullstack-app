@@ -9,7 +9,6 @@ import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
 import { AuthContext } from "./context";
 import PrivateRoute from "./privateRoutes";
-import data from "./data";
 import "./global.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
