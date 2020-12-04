@@ -7,44 +7,42 @@ import UpdateCourse from "./components/updateCourse";
 import UserSignIn from "./components/userSignIn";
 import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
+import { AuthContext } from "./context";
+import PrivateRoute from "./privateRoutes";
+import data from "./data";
 import "./global.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Axios from "axios";
 
-const App = () => {
 
-  const [values, setValues] = useState({
-    //use stored authenticated user from cookie or set it to null
-		authenticatedUser: ""
-	});
-
-  //signIn method is going to need some work here to authenticate and retrun the ser and then store it in a cookie
-	const signIn = (emailAddress, password) => {
-    Axios.get('http://localhost:5000/api/users')
-    .then(res => {
-      console.log(res)
-      console.log(res.data)
-    })
-  };
-  signIn("tylerdegand@gmail.com", "password")
-
+const App = (props) => {
+	
+	const existingTokens = JSON.parse(localStorage.getItem("tokens"));
+  	const [authTokens, setAuthTokens] = useState(existingTokens);
+  
+  	const setTokens = (data) => {
+    	localStorage.setItem("tokens", JSON.stringify(data));
+		setAuthTokens(data);
+	  }
+	
 	return (
-		<Router>
-			<div id="root">
-				<div>
-					<Header />
-					<Switch>
-						<Route exact path="/" component={Courses}></Route>
-						<Route path="/courses/create" component={CreateCourse}></Route>
-						<Route path="/courses/:id/update" component={UpdateCourse}></Route>
-						<Route path="/courses/:id" component={Coursedetail}></Route>
-						<Route path="/signin" component={UserSignIn}></Route>
-						<Route path="/signup" component={UserSignUp}></Route>
-						<Route path="/signout" component={UserSignOut}></Route>
-					</Switch>
+		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens}}>
+			<Router>
+				<div id="root">
+					<div>
+						<Header />
+						<Switch>
+							<Route exact path="/" component={Courses}></Route>
+							<PrivateRoute path="/courses/create" component={() => <CreateCourse />}></PrivateRoute>
+							<PrivateRoute path="/courses/:id/update" component={() => <UpdateCourse />}></PrivateRoute>
+							<Route path="/courses/:id" component={Coursedetail}></Route>
+							<Route path="/signin" component={() => <UserSignIn />}></Route>
+							<Route path="/signup" component={() => <UserSignUp />}></Route>
+							<Route path="/signout" component={() => <UserSignOut />}></Route>
+						</Switch>
+					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</AuthContext.Provider>
 	);
 };
 
