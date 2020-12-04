@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserSignIn = () => {
+
+  const [values, setValues] = useState({
+    username: "",
+    password: ""
+  });
+
+const handleUsername = (event) => {
+  event.persist();
+  setValues((values) => ({
+    ...values,
+    username: event.target.value,
+  }));
+};
+
+const handlePassword = (event) => {
+  event.persist();
+  setValues((values) => ({
+    ...values,
+    password: event.target.value,
+  }));
+};
+
+
 	return (
 		<div className="bounds">
 			<div className="grid-33 centered signin">
@@ -15,7 +38,7 @@ const UserSignIn = () => {
 								type="text"
 								className=""
 								placeholder="Email Address"
-								value=""
+                onChange={handleUsername}
 							/>
 						</div>
 						<div>
@@ -25,7 +48,7 @@ const UserSignIn = () => {
 								type="password"
 								className=""
 								placeholder="Password"
-								value=""
+                onChange={handlePassword}
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
@@ -35,7 +58,6 @@ const UserSignIn = () => {
 							<Link
 								className="button button-secondary"
 								to="/"
-								onclick="event.preventDefault(); location.href='index.html';"
 							>
 								Cancel
 							</Link>
