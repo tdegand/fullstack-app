@@ -36,8 +36,8 @@ const App = () => {
 					<Switch>
 						<Route exact path="/" component={Courses}></Route>
 						<Route path="/courses/create" component={CreateCourse}></Route>
-						<Route path="/courses/:id" component={Coursedetail}></Route>
 						<Route path="/courses/:id/update" component={UpdateCourse}></Route>
+						<Route path="/courses/:id" component={Coursedetail}></Route>
 						<Route path="/signin" component={UserSignIn}></Route>
 						<Route path="/signup" component={UserSignUp}></Route>
 						<Route path="/signout" component={UserSignOut}></Route>
