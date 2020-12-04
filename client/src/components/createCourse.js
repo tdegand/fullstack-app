@@ -126,7 +126,7 @@ const CreateCourse = () => {
 							to={{ pathname: "/" }}
 							onClick={createCourse}
 						>
-							Update Course
+							Create Course
 						</Link>
 						<Link to={{ pathname: "/" }}>
 							<button className="button button-secondary">Cancel</button>
