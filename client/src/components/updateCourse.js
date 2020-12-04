@@ -68,8 +68,15 @@ const UpdateCourse = () => {
 	const path = window.location.pathname.split("/");
 	const id = path[2];
 
+	const newCourseData = {
+		title: values.title,
+		description: values.description,
+		estimatedTime: values.time,
+		materialsNeeded: values.materials
+	};
+
 	const updateCourse = () => {
-		axios.put(`http://localhost:5000/api/courses/${id}`).then(() => {
+		axios.put(`http://localhost:5000/api/courses/${id}`, { newCourseData }).then(() => {
 			this.props.history.push(`/courses/${id}`);
 		});
 	};

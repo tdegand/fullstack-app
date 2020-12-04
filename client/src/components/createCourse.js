@@ -1,63 +1,141 @@
-import React from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CreateCourse = () => {
 
-    return(
-        <div className="bounds course--detail">
-        
-        <h1>Create Course</h1>
-        <div>
-          <div>
-            <h2 className="validation--errors--label">Validation errors</h2>
-            <div className="validation-errors">
-              <ul>
-                <li>Please provide a value for "Title"</li>
-                <li>Please provide a value for "Description"</li>
-              </ul>
-            </div>
-          </div>
-          
-          <form>
-            <div className="grid-66">
-              <div className="course--header">
-                <h4 className="course--label">Course</h4>
-                <div>
-                  <input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..." value="" />
-                </div>
-                <p>By Joe Smith</p>
-              </div>
-              <div className="course--description">
-                <div>
-                  <textarea id="description" name="description" className="" placeholder="Course description..."></textarea>
-                </div>
-              </div>
-            </div>
-            <div className="grid-25 grid-right">
-              <div className="course--stats">
-                <ul className="course--stats--list">
-                  <li className="course--stats--list--item">
-                    <h4>Estimated Time</h4>
-                    <div>
-                      <input id="estimatedTime" name="estimatedTime" type="text" className="course--time--input" placeholder="Hours" value="" />
-                    </div>
-                  </li>
-                  <li className="course--stats--list--item">
-                    <h4>Materials Needed</h4>
-                    <div>
-                      <textarea id="materialsNeeded" name="materialsNeeded" className="" placeholder="List materials..."></textarea>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="grid-100 pad-bottom">
-              <button className="button" type="submit">Create Course</button>
-              <button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-}
+  const [values, setValues] = useState({
+		title: "",
+		description: "",
+		time: "",
+		materials: "",
+	});
 
-export default CreateCourse
+	const handleTitle = (event) => {
+		event.persist();
+		setValues((values) => ({
+			...values,
+			title: event.target.value,
+		}));
+	};
+	const handleDescription = (event) => {
+		event.persist();
+		setValues((values) => ({
+			...values,
+			description: event.target.value,
+		}));
+	};
+	const handleTime = (event) => {
+		event.persist();
+		setValues((values) => ({
+			...values,
+			time: event.target.value,
+		}));
+	};
+	const handleMaterials = (event) => {
+		event.persist();
+		setValues((values) => ({
+			...values,
+			materials: event.target.value,
+		}));
+  };
+  
+  const newCourseData = {
+		title: values.title,
+		description: values.description,
+		estimatedTime: values.time,
+		materialsNeeded: values.materials
+	};
+
+	const createCourse = () => {
+    axios.post(`http://localhost:5000/api/courses`, { newCourseData })
+    .then(res => {
+      console.log(res)
+      console.log(res.data)
+			this.props.history.push(`/`);
+		});
+  };
+  
+	return (
+		<div className="bounds course--detail">
+			<h1>Create Course</h1>
+			<div>
+				<form>
+					<div className="grid-66">
+						<div className="course--header">
+							<h4 className="course--label">Course</h4>
+							<div>
+								<input
+									id="title"
+									name="title"
+									type="text"
+									className="input-title course--title--input"
+									placeholder="Please enter a Title..."
+									onChange={handleTitle}
+								/>
+							</div>
+							<p>get signed in users name</p>
+						</div>
+						<div className="course--description">
+							<div>
+								<textarea
+									id="description"
+									name="description"
+									className=""
+									placeholder="Please enter a description..."
+									onChange={handleDescription}
+								></textarea>
+							</div>
+						</div>
+					</div>
+					<div className="grid-25 grid-right">
+						<div className="course--stats">
+							<ul className="course--stats--list">
+								<li className="course--stats--list--item">
+									<h4>Estimated Time</h4>
+									<div>
+										<input
+											id="estimatedTime"
+											name="estimatedTime"
+											type="text"
+											className="course--time--input"
+											placeholder="Please Enter the amount of time.."
+											onChange={handleTime}
+										/>
+									</div>
+								</li>
+								<li className="course--stats--list--item">
+									<h4>Materials Needed</h4>
+									<div>
+										<textarea
+											id="materialsNeeded"
+											name="materialsNeeded"
+											className=""
+											placeholder="Please enter materials needed..."
+											onChange={handleMaterials}
+										></textarea>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div className="grid-100 pad-bottom">
+						<Link
+							className="button"
+							type="submit"
+							to={{ pathname: "/" }}
+							onClick={createCourse}
+						>
+							Update Course
+						</Link>
+						<Link to={{ pathname: "/" }}>
+							<button className="button button-secondary">Cancel</button>
+						</Link>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
+};
+
+export default CreateCourse;

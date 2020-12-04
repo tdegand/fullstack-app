@@ -23,18 +23,10 @@ class App extends Component {
 					<div>
 						<Header />
 						<Switch>
-							<Route exact path="/">
-								<Courses />
-							</Route>
-							<Route exact path="/courses/:id">
-								<Coursedetail />
-							</Route>
-							<Route exact path="/courses/create">
-								<CreateCourse />
-							</Route>
-							<Route path="/courses/:id/update">
-								<UpdateCourse />
-							</Route>
+							<Route exact path="/" component={Courses}></Route>
+              <Route path="/courses/create" component={CreateCourse}></Route>
+							<Route path="/courses/:id"component={Coursedetail}></Route>
+							<Route path="/courses/:id/update" component={UpdateCourse}></Route>
 							<Route path="/signin" component={UserSignInWithContext}></Route>
 							<Route path="/signup" component={UserSignUpWithContext}></Route>
 							<Route path="/signout" component={UserSignOutWithContext}></Route>
