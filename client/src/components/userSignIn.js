@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../context";
 import axios from 'axios';
@@ -10,7 +10,7 @@ const UserSignIn = () => {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
 	const { setAuthTokens } = useAuth();
-	const encodedCredentials = btoa(`${userName}:${password}`);
+	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
 
 	const options = {
         headers: {
@@ -40,7 +40,7 @@ const handleUsername = (event) => {
   event.persist();
   setUserName((values) => ({
     ...values,
-    username: event.target.value,
+    userName: event.target.value,
   }));
 };
 
@@ -80,7 +80,7 @@ const handlePassword = (event) => {
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
-							<Link className="button" type="submit" onClick={getLogin}>
+							<Link className="button" type="submit" onClick={getLogin} to="/">
 								Sign In
 							</Link>
 							<Link
