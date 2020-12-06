@@ -1,12 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+import { useAuth } from "../context";
+import { Link } from "react-router-dom";
 
-class UserSignOut extends Component{
+const UserSignOut = (props) => {
 
-    render() {
-        return(
-            <h1>Placeholder</h1>
-        );
-    }
-}
+	const { setAuthTokens } = useAuth();
 
-export default UserSignOut
+	const signOut = () => {
+		setAuthTokens();
+	};
+	return <Link className="signin" onClick={signOut}>Sign Out</Link>;
+};
+
+export default UserSignOut;

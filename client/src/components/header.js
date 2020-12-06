@@ -1,23 +1,32 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context";
+import SignedInLinks from "../components/signedInLinks"
+import SignedOutLinks from "../components/signedOutLinks"
 
 
-class Header extends Component{
-    render() {
-        return (
-            <div className="header">
-                <div className="bounds">
-                    <Link to="/">
-                        <h1 className="header--logo">Courses</h1>
-                    </Link>
-                    <nav>
-                        <Link className="signup" to="/signup">Sign Up</Link>
-                        <Link className="signin" to="/signin">Sign In</Link>
-                        </nav>
-                </div>
-            </div>
-        );
+const Header = () => {
+    let isAuthenticated = useAuth().authTokens;
+	let loggedIn
+
+	if(isAuthenticated === null) {
+		loggedIn = false
+	}else {
+		loggedIn = true
     }
-}
+
+	return (
+		<div className="header">
+			<div className="bounds">
+				<Link to="/">
+					<h1 className="header--logo">Courses</h1>
+				</Link>
+				<nav>
+					{!loggedIn ? <SignedOutLinks /> : <SignedInLinks />}
+				</nav>
+			</div>
+		</div>
+	);
+};
 
 export default Header;

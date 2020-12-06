@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../context";
 import axios from 'axios';
@@ -18,23 +18,28 @@ const UserSignIn = () => {
 			'Authorization': `Basic ${encodedCredentials}`,
         },
 	};
+	
 	const getLogin = () => {
-	  axios.get("http://localhost:5000/api/users", options, {
-	  }).then(result => {
-		if (result.status === 200) {
-		  setAuthTokens(result.data);
-		  setLoggedIn(true);
-		} else {
-		  setIsError(true);
+		axios.get("http://localhost:5000/api/users", options, {
+		}).then(result => {
+			if (result.status === 200) {
+			setAuthTokens(result.data);
+			setLoggedIn(true);
+			} else {
+			setIsError(true);
+			}
+		}).catch(e => {
+			setIsError(true);
+		});
 		}
-	  }).catch(e => {
-		setIsError(true);
-	  });
-	}
-  
+	
+  useEffect(() => {
 	if (isLoggedIn) {
-	  return <Redirect to="/" />;
-	}
+		return <Redirect to="/" />;
+	  }
+  
+  })
+	
 const handleUsername = (event) => {
   event.persist();
   setUserName((values) => ({

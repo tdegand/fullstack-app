@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context";
 
 const Coursedetail = () => {
 	//Uses a react hook to set and store state
@@ -27,6 +28,29 @@ const Coursedetail = () => {
 			.catch((res) => console.log("error", res));
 	}, []);
 
+	const isAuthenticated = useAuth().authTokens;
+	let loggedIn
+
+	//Checks if a user is signed in
+	if(isAuthenticated === null) {
+		loggedIn = false
+	}else {
+		loggedIn = true
+	}
+
+	//shows buttons based on if a user is signed in or not
+
+	//need to add these requirements as well "And the authenticated user's ID matches that of the user who owns the course."
+	let buttonStyle = {
+		display: "inline-block"
+	}
+
+	if(loggedIn === false) {
+		buttonStyle = {
+			display: "none"
+		}
+	}
+
 	const deleteCourse = () => {
 		const path = window.location.pathname.split("/");
 		const id = path[2];
@@ -43,11 +67,16 @@ const Coursedetail = () => {
 						<span>
 							<Link
 								className="button"
+								style={buttonStyle}
 								to={{ pathname: `/courses/${values.course.id}/update` }}
 							>
 								Update Course
 							</Link>
-							<Link className="button" to="/" onClick={deleteCourse}>
+							<Link 
+							className="button"
+							style={buttonStyle} 
+							to="/" 
+							onClick={deleteCourse}>
 								Delete Course
 							</Link>
 						</span>
