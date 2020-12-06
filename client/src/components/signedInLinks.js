@@ -1,14 +1,17 @@
 import React from "react";
 import UserSignOut from "../components/userSignOut"
+import { useAuth } from "../context";
 
-const signedInLinks = () => {
+const SignedInLinks = () => {
+
+    const { authTokens } = useAuth();
 
 	return (
 		<React.Fragment>
-            <span>Hello User!</span>
+            <span>Hello {authTokens.firstName}!</span>
             <UserSignOut />
         </React.Fragment>
 	);
 };
 
-export default signedInLinks;
+export default SignedInLinks;

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../context";
-import axios from 'axios';
+import axios from "axios";
 
 const UserSignIn = () => {
-
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [userName, setUserName] = useState("");
@@ -13,49 +12,47 @@ const UserSignIn = () => {
 	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
 
 	const options = {
-        headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Basic ${encodedCredentials}`,
-        },
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Basic ${encodedCredentials}`,
+		},
 	};
-	
+
 	const getLogin = () => {
-		axios.get("http://localhost:5000/api/users", options, {
-		}).then(result => {
-			if (result.status === 200) {
-			setAuthTokens(result.data);
-			setLoggedIn(true);
-			} else {
-			setIsError(true);
-			}
-		}).catch(e => {
-			setIsError(true);
-		});
-		}
-	
-  useEffect(() => {
+		axios
+			.get("http://localhost:5000/api/users", options, {})
+			.then((result) => {
+				if (result.status === 200) {
+					setAuthTokens(result.data);
+					setLoggedIn(true);
+				} else {
+					setIsError(true);
+				}
+			})
+			.catch((e) => {
+				setIsError(true);
+			});
+	};
+
 	if (isLoggedIn) {
 		return <Redirect to="/" />;
-	  }
-  
-  })
-	
-const handleUsername = (event) => {
-  event.persist();
-  setUserName((values) => ({
-    ...values,
-    userName: event.target.value,
-  }));
-};
+	}
 
-const handlePassword = (event) => {
-  event.persist();
-  setPassword((values) => ({
-    ...values,
-    password: event.target.value,
-  }));
-};
+	const handleUsername = (event) => {
+		event.persist();
+		setUserName((values) => ({
+			...values,
+			userName: event.target.value,
+		}));
+	};
 
+	const handlePassword = (event) => {
+		event.persist();
+		setPassword((values) => ({
+			...values,
+			password: event.target.value,
+		}));
+	};
 
 	return (
 		<div className="bounds">
@@ -70,7 +67,7 @@ const handlePassword = (event) => {
 								type="text"
 								className=""
 								placeholder="Email Address"
-                onChange={handleUsername}
+								onChange={handleUsername}
 							/>
 						</div>
 						<div>
@@ -80,17 +77,14 @@ const handlePassword = (event) => {
 								type="password"
 								className=""
 								placeholder="Password"
-                onChange={handlePassword}
+								onChange={handlePassword}
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
 							<Link className="button" type="submit" onClick={getLogin} to="/">
 								Sign In
 							</Link>
-							<Link
-								className="button button-secondary"
-								to="/"
-							>
+							<Link className="button button-secondary" to="/">
 								Cancel
 							</Link>
 						</div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const signedOutLinks = () => {
+const SignedOutLinks = () => {
 
 	return (
 		<React.Fragment>
@@ -15,4 +15,4 @@ const signedOutLinks = () => {
 	);
 };
 
-export default signedOutLinks;
+export default SignedOutLinks;

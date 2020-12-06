@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import { useAuth } from "../context";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const UserSignOut = (props) => {
-
-	const { setAuthTokens } = useAuth();
+const UserSignOut = () => {
 
 	const signOut = () => {
-		setAuthTokens();
+		localStorage.clear();
+		window.location.reload()
 	};
-	return <Link className="signin" onClick={signOut}>Sign Out</Link>;
+	return <Link className="signin" to="/" onClick={signOut}>Sign Out</Link>;
 };
 
 export default UserSignOut;

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Header from "./components/header";
 import Courses from "./components/courses";
 import Coursedetail from "./components/courseDetail";
@@ -16,12 +16,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = (props) => {
 	
 	const existingTokens = JSON.parse(localStorage.getItem("tokens"));
-	  const [authTokens, setAuthTokens] = useState(existingTokens);
+	const [authTokens, setAuthTokens] = useState(existingTokens);
   
   	const setTokens = (data) => {
     	localStorage.setItem("tokens", JSON.stringify(data));
 		setAuthTokens(data);
-		console.log(authTokens)
 	  }
 	
 	return (
