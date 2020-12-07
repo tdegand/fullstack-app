@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../context";
+import { useAuth } from "../authContext";
 
 const UpdateCourse = () => {
 	//Uses a react hook to set and store state

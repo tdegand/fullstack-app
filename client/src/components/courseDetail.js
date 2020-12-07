@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../context";
+import { useAuth } from "../authContext";
 import ReactMarkdown from "react-markdown";
 
 const Coursedetail = () => {

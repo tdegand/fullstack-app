@@ -7,7 +7,7 @@ import UpdateCourse from "./components/updateCourse";
 import UserSignIn from "./components/userSignIn";
 import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
-import { AuthContext } from "./context";
+import { AuthContext } from "./authContext";
 import PrivateRoute from "./privateRoutes";
 import "./global.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

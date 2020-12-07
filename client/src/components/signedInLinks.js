@@ -1,6 +1,6 @@
 import React from "react";
 import UserSignOut from "../components/userSignOut";
-import { useAuth } from "../context";
+import { useAuth } from "../authContext";
 
 const SignedInLinks = () => {
 	const { authTokens } = useAuth();

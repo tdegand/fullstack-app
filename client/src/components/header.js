@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context";
+import { useAuth } from "../authContext";
 import SignedInLinks from "../components/signedInLinks";
 import SignedOutLinks from "../components/signedOutLinks";
 

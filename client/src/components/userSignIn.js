@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../context";
+import { useAuth } from "../authContext";
 import axios from "axios";
 
 const UserSignIn = () => {
