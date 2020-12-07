@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../context";
 import axios from "axios";
 
@@ -11,24 +11,28 @@ const UserSignIn = () => {
 	const { setAuthTokens } = useAuth();
 	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
 
-	if (userName !== null || password !== null) {
+	if (userName !== "" || password !== "") {
 		localStorage.setItem("access-token", encodedCredentials);
 	}
 
 	const options = {
 		headers: {
 			"Content-Type": "application/json",
-			Authorization: `Basic ${encodedCredentials}`,
+			"Authorization": `Basic ${encodedCredentials}`,
 		},
 	};
 
+	let history = useHistory();
+	
 	const getLogin = () => {
 		axios
 			.get("http://localhost:5000/api/users", options, {})
 			.then((result) => {
+				console.log(result.status)
 				if (result.status === 200) {
 					setAuthTokens(result.data);
 					setLoggedIn(true);
+					history.push("/")
 				} else {
 					setIsError(true);
 				}
@@ -37,10 +41,6 @@ const UserSignIn = () => {
 				setIsError(true);
 			});
 	};
-
-	if (isLoggedIn) {
-		return <Redirect to="/" />;
-	}
 
 	const handleUsername = (event) => {
 		event.persist();
@@ -85,7 +85,7 @@ const UserSignIn = () => {
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
-							<Link className="button" type="submit" onClick={getLogin} to="/">
+							<Link className="button" type="submit" onClick={getLogin}>
 								Sign In
 							</Link>
 							<Link className="button button-secondary" to="/">

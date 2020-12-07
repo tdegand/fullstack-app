@@ -56,7 +56,6 @@ function asyncHandler(cb){
 // Get the currently Authenticated user
 router.get('/api/users', authenticateUser, asyncHandler(async(req, res) => {
   const user = req.currentUser;
-  console.log(user)
   //return current Authenticated user
   res.json({
     id: user.id,
