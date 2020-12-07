@@ -11,19 +11,22 @@ const UserSignIn = () => {
 	const { setAuthTokens } = useAuth();
 	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
 
+
+	//sets "access-token" used for authorization header in axios calls
 	if (userName !== "" || password !== "") {
 		localStorage.setItem("access-token", encodedCredentials);
 	}
 
+	//sets authorization header for axios calls
 	const options = {
 		headers: {
-			"Content-Type": "application/json",
 			"Authorization": `Basic ${encodedCredentials}`,
 		},
 	};
 
 	let history = useHistory();
-	
+
+	//checks if the user exists and runs them through the authentication process of the API
 	const getLogin = () => {
 		axios
 			.get("http://localhost:5000/api/users", options, {})

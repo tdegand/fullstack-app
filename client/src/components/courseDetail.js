@@ -11,6 +11,7 @@ const Coursedetail = () => {
 		owner: [],
 	});
 
+	//Gets the referenced item to look at the details
 	useEffect(() => {
 		const path = window.location.pathname.split("/");
 		const id = path[2];
@@ -51,6 +52,7 @@ const Coursedetail = () => {
 		};
 	}
 
+	// sets the options for the axios call
 	const options = {
 		headers: {
 			Authorization: `Basic ${localStorage.getItem("access-token")}`,
@@ -59,6 +61,7 @@ const Coursedetail = () => {
 
 	let history = useHistory();
 
+	//Will Delete courses for any signed in user who has access
 	const deleteCourse = () => {
 		const path = window.location.pathname.split("/");
 		const id = path[2];

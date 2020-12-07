@@ -48,13 +48,14 @@ const UpdateCourse = () => {
 	const path = window.location.pathname.split("/");
 	const id = path[2];
 
+	//data that will be passed in the PUT axios call
 	const newCourseData = {
 		title: values.title,
 		description: values.description,
 		estimatedTime: values.time,
 		materialsNeeded: values.materials,
 	};
-
+	// sets the options for the axios call
 	const options = {
 		headers: {
 			"Authorization": `Basic ${localStorage.getItem("access-token")}`,
@@ -80,6 +81,8 @@ const UpdateCourse = () => {
 				}));
 			})
 	};
+
+	//This will show validation errors if the API returns errors
 
 	let validationErrors = {
 		display: "block",

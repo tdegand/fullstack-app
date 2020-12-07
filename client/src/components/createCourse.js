@@ -43,6 +43,7 @@ const CreateCourse = () => {
 		}));
 	};
 
+	//data that will be passed in the POST axios call
 	const newCourseData = {
 		title: values.title,
 		description: values.description,
@@ -50,7 +51,7 @@ const CreateCourse = () => {
 		materialsNeeded: values.materials,
 		userId: authTokens.id,
 	};
-
+	// sets the options for the axios call
 	const options = {
 		headers: {
 			Authorization: `Basic ${localStorage.getItem("access-token")}`,
@@ -75,8 +76,7 @@ const CreateCourse = () => {
 			})
 	};
 
-	console.log(values.errors)
-	
+	//This will show validation errors if the API returns errors
 	let validationErrors = {
 		display: "block",
 	};

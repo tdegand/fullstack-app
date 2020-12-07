@@ -6,9 +6,9 @@ function PrivateRoute({ component: Component, ...rest }) {
 	let isAuthenticated = useAuth().authTokens;
 	let loggedIn
 
-	if(isAuthenticated === null) {
+	if (isAuthenticated === null) {
 		loggedIn = false
-	}else {
+	} else {
 		loggedIn = true
 	}
 

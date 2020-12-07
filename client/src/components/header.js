@@ -8,6 +8,7 @@ const Header = () => {
 	let isAuthenticated = useAuth().authTokens;
 	let loggedIn;
 
+	//Checks for signed in user to dynamically render the links in the header
 	if (isAuthenticated === null) {
 		loggedIn = false;
 	} else {

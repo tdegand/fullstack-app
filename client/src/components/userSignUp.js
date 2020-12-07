@@ -12,6 +12,7 @@ const UserSignUp = () => {
 		errors: []
 	});
 
+	//user data sent to api to create a new user
 	const user = {
 		firstName: values.firstName,
 		lastName: values.lastName,
@@ -21,6 +22,7 @@ const UserSignUp = () => {
 
 	let history = useHistory();
 
+	//axios POST call to create the user
 	const submit = () => {
 		if (values.password === values.confirmPass) {
 			axios
@@ -38,8 +40,6 @@ const UserSignUp = () => {
 				})
 		}
 	};
-
-	console.log(values.errors)
 	const handleFirstNameChange = (event) => {
 		event.persist();
 		setValues((values) => ({
@@ -76,6 +76,7 @@ const UserSignUp = () => {
 		}));
 	};
 
+	//This will show validation errors if the API returns errors
 	let validationErrors = {
 		display: "block",
 	};

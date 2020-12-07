@@ -14,17 +14,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 const App = (props) => {
-	
+
 	const existingTokens = JSON.parse(localStorage.getItem("tokens"));
 	const [authTokens, setAuthTokens] = useState(existingTokens);
-  
-  	const setTokens = (data) => {
-    	localStorage.setItem("tokens", JSON.stringify(data));
+
+	const setTokens = (data) => {
+		localStorage.setItem("tokens", JSON.stringify(data));
 		setAuthTokens(data);
-	  }
-	
+	}
+
 	return (
-		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens}}>
+		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
 			<Router>
 				<div id="root">
 					<div>
