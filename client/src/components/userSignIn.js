@@ -30,7 +30,6 @@ const UserSignIn = () => {
 		axios
 			.get("http://localhost:5000/api/users", options, {})
 			.then((result) => {
-				console.log(result.status)
 				if (result.status === 200) {
 					setAuthTokens(result.data);
 					setLoggedIn(true);

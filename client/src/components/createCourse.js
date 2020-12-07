@@ -68,7 +68,6 @@ const CreateCourse = () => {
 				window.location.reload();
 			})
 			.catch(err => {
-				console.log(err.response.data.errors);
 				setValues((values) => ({
 					...values,
 					errors: err.response.data.errors

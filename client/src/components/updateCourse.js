@@ -13,9 +13,6 @@ const UpdateCourse = () => {
 		errors: []
 	});
 
-	console.log(values.errors)
-
-
 	const handleTitle = (event) => {
 		event.persist();
 		setValues((values) => ({
@@ -74,7 +71,6 @@ const UpdateCourse = () => {
 				window.location.reload();
 			})
 			.catch(err => {
-				console.log(err.response.data.errors);
 				setValues((values) => ({
 					...values,
 					errors: err.response.data.errors
@@ -177,6 +173,7 @@ const UpdateCourse = () => {
 						<Link
 							className="button"
 							type="submit"
+							to="/"
 							onClick={(e) => {
 								updateCourse()
 								e.preventDefault()

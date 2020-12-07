@@ -28,7 +28,6 @@ const UserSignUp = () => {
 			axios
 				.post("http://localhost:5000/api/users", user)
 				.then(res => {
-					console.log(res.data);
 					history.push("/signin");
 				})
 				.catch(err => {
