@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const UpdateCourse = () => {
 	//Uses a react hook to set and store state
@@ -72,13 +72,24 @@ const UpdateCourse = () => {
 		title: values.title,
 		description: values.description,
 		estimatedTime: values.time,
-		materialsNeeded: values.materials
+		materialsNeeded: values.materials,
 	};
 
+	const options = {
+		headers: {
+			Authorization: `Basic ${localStorage.getItem("access-token")}`,
+		},
+	};
+
+	let history = useHistory();
+
 	const updateCourse = () => {
-		axios.put(`http://localhost:5000/api/courses/${id}`, { newCourseData }).then(() => {
-			this.props.history.push(`/courses/${id}`);
-		});
+		axios
+			.put(`http://localhost:5000/api/courses/${id}`, newCourseData, options)
+			.then(() => {
+				history.push(`/courses/${id}`);
+				window.location.reload();
+			});
 	};
 
 	return (

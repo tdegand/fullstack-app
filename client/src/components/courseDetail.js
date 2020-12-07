@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../context";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown";
 
 const Coursedetail = () => {
 	//Uses a react hook to set and store state
@@ -30,35 +30,45 @@ const Coursedetail = () => {
 	}, []);
 
 	const isAuthenticated = useAuth().authTokens;
-	let loggedIn
+	const { authTokens } = useAuth();
+	let loggedIn;
 
 	//Checks if a user is signed in
-	if(isAuthenticated === null) {
-		loggedIn = false
-	}else {
-		loggedIn = true
+	if (isAuthenticated !== null && authTokens.id === values.owner.id) {
+		loggedIn = true;
+	} else {
+		loggedIn = false;
 	}
-
-	//shows buttons based on if a user is signed in or not
 
 	//need to add these requirements as well "And the authenticated user's ID matches that of the user who owns the course."
 	let buttonStyle = {
-		display: "inline-block"
+		display: "inline-block",
+	};
+
+	if (loggedIn === false) {
+		buttonStyle = {
+			display: "none",
+		};
 	}
 
-	if(loggedIn === false) {
-		buttonStyle = {
-			display: "none"
-		}
-	}
+	const options = {
+		headers: {
+			Authorization: `Basic ${localStorage.getItem("access-token")}`,
+		},
+	};
+
+	let history = useHistory();
 
 	const deleteCourse = () => {
 		const path = window.location.pathname.split("/");
 		const id = path[2];
 
-		axios.delete(`http://localhost:5000/api/courses/${id}`).then(() => {
-			this.props.history.push("/");
-		});
+		axios
+			.delete(`http://localhost:5000/api/courses/${id}`, options)
+			.then(() => {
+				history.push("/");
+				window.location.reload();
+			});
 	};
 	return (
 		<div>
@@ -73,11 +83,12 @@ const Coursedetail = () => {
 							>
 								Update Course
 							</Link>
-							<Link 
-							className="button"
-							style={buttonStyle} 
-							to="/" 
-							onClick={deleteCourse}>
+							<Link
+								className="button"
+								style={buttonStyle}
+								to="/"
+								onClick={deleteCourse}
+							>
 								Delete Course
 							</Link>
 						</span>
@@ -95,9 +106,7 @@ const Coursedetail = () => {
 						<p>{`By ${values.owner.firstName} ${values.owner.lastName}`}</p>
 					</div>
 					<div className="course--description">
-						<ReactMarkdown>
-							{values.course.description}
-						</ReactMarkdown>
+						<ReactMarkdown>{values.course.description}</ReactMarkdown>
 					</div>
 				</div>
 				<div className="grid-25 grid-right">
@@ -110,9 +119,7 @@ const Coursedetail = () => {
 							<li className="course--stats--list--item">
 								<h4>Materials Needed</h4>
 								<ul>
-									<ReactMarkdown>
-										{values.course.materialsNeeded}
-									</ReactMarkdown>
+									<ReactMarkdown>{values.course.materialsNeeded}</ReactMarkdown>
 								</ul>
 							</li>
 						</ul>

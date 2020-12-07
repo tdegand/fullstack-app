@@ -12,7 +12,6 @@ const UserSignUp = () => {
 	});
 
 	const submit = () => {
-		const { context } = this.props;
 		const { firstName, lastName, emailAddress, password } = values;
 
 		// Create user
@@ -21,23 +20,6 @@ const UserSignUp = () => {
 			lastName,
 			emailAddress,
 			password,
-		};
-
-		context.data
-			.createUser(user)
-			.then((errors) => {
-				if (errors.length) {
-					this.setState({ errors });
-				} else {
-					context.actions.signIn(emailAddress, password).then(() => {
-						this.props.history.push("/authenticated");
-					});
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-				this.props.history.push("/error");
-			});
 	};
 
 	const handleFirstNameChange = (event) => {

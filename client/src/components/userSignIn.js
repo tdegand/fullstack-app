@@ -11,14 +11,14 @@ const UserSignIn = () => {
 	const { setAuthTokens } = useAuth();
 	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
 
-	if(!userName == null || !password == null) {
-		localStorage.setItem("access-token", encodedCredentials)
+	if (userName !== null || password !== null) {
+		localStorage.setItem("access-token", encodedCredentials);
 	}
-	
+
 	const options = {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": `Basic ${encodedCredentials}`,
+			Authorization: `Basic ${encodedCredentials}`,
 		},
 	};
 
@@ -27,7 +27,6 @@ const UserSignIn = () => {
 			.get("http://localhost:5000/api/users", options, {})
 			.then((result) => {
 				if (result.status === 200) {
-					console.log(result)
 					setAuthTokens(result.data);
 					setLoggedIn(true);
 				} else {

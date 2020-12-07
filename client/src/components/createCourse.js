@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../context";
 
 const CreateCourse = () => {
-
-  const [values, setValues] = useState({
+	const [values, setValues] = useState({
 		title: "",
 		description: "",
 		time: "",
 		materials: "",
 	});
+
+	const { authTokens } = useAuth();
 
 	const handleTitle = (event) => {
 		event.persist();
@@ -38,24 +40,33 @@ const CreateCourse = () => {
 			...values,
 			materials: event.target.value,
 		}));
-  };
-  
-  const newCourseData = {
+	};
+
+	const newCourseData = {
 		title: values.title,
 		description: values.description,
 		estimatedTime: values.time,
-		materialsNeeded: values.materials
+		materialsNeeded: values.materials,
+		userId: authTokens.id,
 	};
 
+	const options = {
+		headers: {
+			Authorization: `Basic ${localStorage.getItem("access-token")}`,
+		},
+	};
+
+	let history = useHistory();
+
 	const createCourse = () => {
-    axios.post(`http://localhost:5000/api/courses`, { newCourseData })
-    .then(res => {
-      console.log(res)
-      console.log(res.data)
-			this.props.history.push(`/`);
-		});
-  };
-  
+		axios
+			.post(`http://localhost:5000/api/courses`, newCourseData, options)
+			.then((res) => {
+				history.push(`/`);
+				window.location.reload();
+			});
+	};
+
 	return (
 		<div className="bounds course--detail">
 			<h1>Create Course</h1>

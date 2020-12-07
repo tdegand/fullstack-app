@@ -1,19 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context";
-import SignedInLinks from "../components/signedInLinks"
-import SignedOutLinks from "../components/signedOutLinks"
-
+import SignedInLinks from "../components/signedInLinks";
+import SignedOutLinks from "../components/signedOutLinks";
 
 const Header = () => {
-    let isAuthenticated = useAuth().authTokens;
-	let loggedIn
+	let isAuthenticated = useAuth().authTokens;
+	let loggedIn;
 
-	if(isAuthenticated === null) {
-		loggedIn = false
-	}else {
-		loggedIn = true
-    }
+	if (isAuthenticated === null) {
+		loggedIn = false;
+	} else {
+		loggedIn = true;
+	}
 
 	return (
 		<div className="header">
@@ -21,9 +20,7 @@ const Header = () => {
 				<Link to="/">
 					<h1 className="header--logo">Courses</h1>
 				</Link>
-				<nav>
-					{!loggedIn ? <SignedOutLinks /> : <SignedInLinks />}
-				</nav>
+				<nav>{!loggedIn ? <SignedOutLinks /> : <SignedInLinks />}</nav>
 			</div>
 		</div>
 	);
