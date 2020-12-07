@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context";
+import ReactMarkdown from 'react-markdown'
 
 const Coursedetail = () => {
 	//Uses a react hook to set and store state
@@ -94,7 +95,9 @@ const Coursedetail = () => {
 						<p>{`By ${values.owner.firstName} ${values.owner.lastName}`}</p>
 					</div>
 					<div className="course--description">
-						<p>{values.course.description}</p>
+						<ReactMarkdown>
+							{values.course.description}
+						</ReactMarkdown>
 					</div>
 				</div>
 				<div className="grid-25 grid-right">
@@ -107,7 +110,9 @@ const Coursedetail = () => {
 							<li className="course--stats--list--item">
 								<h4>Materials Needed</h4>
 								<ul>
-									<li>{values.course.materialsNeeded}</li>
+									<ReactMarkdown>
+										{values.course.materialsNeeded}
+									</ReactMarkdown>
 								</ul>
 							</li>
 						</ul>
