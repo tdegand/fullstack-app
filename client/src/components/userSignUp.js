@@ -12,14 +12,7 @@ const UserSignUp = () => {
 	});
 
 	const submit = () => {
-		const { firstName, lastName, emailAddress, password } = values;
-
-		// Create user
-		const user = {
-			firstName,
-			lastName,
-			emailAddress,
-			password,
+		
 	};
 
 	const handleFirstNameChange = (event) => {
