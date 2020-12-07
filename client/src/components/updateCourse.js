@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../context";
 
 const UpdateCourse = () => {
 	//Uses a react hook to set and store state
 	const [values, setValues] = useState({
-		course: [],
-		owner: [],
 		title: "",
 		description: "",
 		time: "",
@@ -14,32 +13,8 @@ const UpdateCourse = () => {
 		errors: []
 	});
 
-	useEffect(() => {
-		const path = window.location.pathname.split("/");
-		const id = path[2];
+	console.log(values.errors)
 
-		axios
-			.get(`http://localhost:5000/api/courses/${id}`)
-			.then((res) => {
-				const course = res.data.course;
-				const owner = res.data.course.owner;
-				setValues((values) => ({
-					...values,
-					course: course,
-					owner: owner,
-					title: res.data.course.title,
-					description: course.description,
-					time: course.estimatedTime,
-					materials: course.materialsNeeded,
-				}));
-			})
-			.catch(err => {
-				setValues((values) => ({
-					...values,
-					errors: err.response.data.errors
-				}));
-			});
-	}, []);
 
 	const handleTitle = (event) => {
 		event.persist();
@@ -82,9 +57,11 @@ const UpdateCourse = () => {
 
 	const options = {
 		headers: {
-			Authorization: `Basic ${localStorage.getItem("access-token")}`,
+			"Authorization": `Basic ${localStorage.getItem("access-token")}`,
 		},
 	};
+
+	const { authTokens } = useAuth();
 
 	let history = useHistory();
 
@@ -93,7 +70,7 @@ const UpdateCourse = () => {
 			.put(`http://localhost:5000/api/courses/${id}`, newCourseData, options)
 			.then((res) => {
 				history.push(`/courses/${id}`);
-				// window.location.reload();
+				window.location.reload();
 			})
 			.catch(err => {
 				console.log(err.response.data.errors);
@@ -144,11 +121,11 @@ const UpdateCourse = () => {
 									name="title"
 									type="text"
 									className="input-title course--title--input"
-									placeholder={values.course.title}
+									placeholder="Please neter a new title"
 									onChange={handleTitle}
 								/>
 							</div>
-							<p>{`By ${values.owner.firstName} ${values.owner.lastName}`}</p>
+							<p>{`By ${authTokens.firstName} ${authTokens.lastName}`}</p>
 						</div>
 						<div className="course--description">
 							<div>
@@ -156,7 +133,7 @@ const UpdateCourse = () => {
 									id="description"
 									name="description"
 									className=""
-									placeholder={values.course.description}
+									placeholder="Please neter a new description"
 									onChange={handleDescription}
 								></textarea>
 							</div>
@@ -173,7 +150,7 @@ const UpdateCourse = () => {
 											name="estimatedTime"
 											type="text"
 											className="course--time--input"
-											placeholder={values.course.estimatedTime}
+											placeholder="Please enter Time"
 											onChange={handleTime}
 										/>
 									</div>
@@ -185,7 +162,7 @@ const UpdateCourse = () => {
 											id="materialsNeeded"
 											name="materialsNeeded"
 											className=""
-											placeholder={values.course.materialsNeeded}
+											placeholder="Please enter materials"
 											onChange={handleMaterials}
 										></textarea>
 									</div>
@@ -194,14 +171,14 @@ const UpdateCourse = () => {
 						</div>
 					</div>
 					<div className="grid-100 pad-bottom">
-						<button
+						<Link
 							className="button"
 							type="submit"
 							onClick={updateCourse}
 						>
 							Update Course
-						</button>
-						<Link to={{ pathname: `/courses/${values.course.id}` }}>
+						</Link>
+						<Link to={{ pathname: `/courses/${id}` }}>
 							<button className="button button-secondary">Cancel</button>
 						</Link>
 					</div>
