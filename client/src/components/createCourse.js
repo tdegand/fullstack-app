@@ -9,6 +9,7 @@ const CreateCourse = () => {
 		description: "",
 		time: "",
 		materials: "",
+		errors: []
 	});
 
 	const { authTokens } = useAuth();
@@ -67,12 +68,44 @@ const CreateCourse = () => {
 			})
 			.catch(err => {
 				console.log(err.response.data.errors);
+				setValues((values) => ({
+					...values,
+					errors: err.response.data.errors
+				}));
 			})
 	};
+
+	console.log(values.errors)
+	
+	let validationErrors = {
+		display: "block",
+	};
+
+	if (values.errors.length === 0 || values.errors === null) {
+		validationErrors = {
+			display: "none"
+		}
+	} else if (values.errors.length > 0) {
+		validationErrors = {
+			display: "block"
+		}
+	}
 
 	return (
 		<div className="bounds course--detail">
 			<h1>Create Course</h1>
+			<div id="errors" style={validationErrors}>
+				<h2 className="validation--errors--label">Validation errors</h2>
+				<div className="validation-errors">
+					<ul>
+						<li>{values.errors[0]}</li>
+						<li>{values.errors[1]}</li>
+						<li>{values.errors[2]}</li>
+						<li>{values.errors[3]}</li>
+						<li>{values.errors[4]}</li>
+					</ul>
+				</div>
+			</div>
 			<div>
 				<form>
 					<div className="grid-66">
@@ -137,7 +170,6 @@ const CreateCourse = () => {
 						<Link
 							className="button"
 							type="submit"
-							to={{ pathname: "/" }}
 							onClick={createCourse}
 						>
 							Create Course

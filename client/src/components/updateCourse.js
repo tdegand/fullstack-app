@@ -11,6 +11,7 @@ const UpdateCourse = () => {
 		description: "",
 		time: "",
 		materials: "",
+		errors: []
 	});
 
 	useEffect(() => {
@@ -20,7 +21,6 @@ const UpdateCourse = () => {
 		axios
 			.get(`http://localhost:5000/api/courses/${id}`)
 			.then((res) => {
-				console.log(res.data);
 				const course = res.data.course;
 				const owner = res.data.course.owner;
 				setValues((values) => ({
@@ -33,7 +33,12 @@ const UpdateCourse = () => {
 					materials: course.materialsNeeded,
 				}));
 			})
-			.catch((res) => console.log("error", res));
+			.catch(err => {
+				setValues((values) => ({
+					...values,
+					errors: err.response.data.errors
+				}));
+			});
 	}, []);
 
 	const handleTitle = (event) => {
@@ -86,18 +91,48 @@ const UpdateCourse = () => {
 	const updateCourse = () => {
 		axios
 			.put(`http://localhost:5000/api/courses/${id}`, newCourseData, options)
-			.then(() => {
+			.then((res) => {
 				history.push(`/courses/${id}`);
-				window.location.reload();
+				// window.location.reload();
 			})
 			.catch(err => {
 				console.log(err.response.data.errors);
+				setValues((values) => ({
+					...values,
+					errors: err.response.data.errors
+				}));
 			})
 	};
+
+	let validationErrors = {
+		display: "block",
+	};
+
+	if (values.errors.length === 0 || values.errors === null) {
+		validationErrors = {
+			display: "none"
+		}
+	} else if (values.errors.length > 0) {
+		validationErrors = {
+			display: "block"
+		}
+	}
 
 	return (
 		<div className="bounds course--detail">
 			<h1>Update Course</h1>
+			<div id="errors" style={validationErrors}>
+				<h2 className="validation--errors--label">Validation errors</h2>
+				<div className="validation-errors">
+					<ul>
+						<li>{values.errors[0]}</li>
+						<li>{values.errors[1]}</li>
+						<li>{values.errors[2]}</li>
+						<li>{values.errors[3]}</li>
+						<li>{values.errors[4]}</li>
+					</ul>
+				</div>
+			</div>
 			<div>
 				<form>
 					<div className="grid-66">
@@ -159,14 +194,13 @@ const UpdateCourse = () => {
 						</div>
 					</div>
 					<div className="grid-100 pad-bottom">
-						<Link
+						<button
 							className="button"
 							type="submit"
-							to={{ pathname: `/courses/${id}` }}
 							onClick={updateCourse}
 						>
 							Update Course
-						</Link>
+						</button>
 						<Link to={{ pathname: `/courses/${values.course.id}` }}>
 							<button className="button button-secondary">Cancel</button>
 						</Link>

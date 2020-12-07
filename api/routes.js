@@ -199,10 +199,10 @@ router.post('/api/courses', [
 router.put('/api/courses/:id',  [
   //checks to make sure required fields are filled in
   check('title')
-    .exists()
+    .exists({ checkNull: true, checkFalsy: true })
     .withMessage('Please provide a Title'),
   check('description')
-    .exists()
+    .exists({ checkNull: true, checkFalsy: true })
     .withMessage('Please provide a description'),
 ], authenticateUser, asyncHandler(async(req, res) => {
   const errors = validationResult(req);

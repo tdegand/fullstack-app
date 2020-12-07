@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import Error from "./error";
 
 const UserSignUp = () => {
 	const [values, setValues] = useState({
@@ -10,7 +9,7 @@ const UserSignUp = () => {
 		emailAddress: "",
 		password: "",
 		confirmPass: "",
-		errors: {}
+		errors: []
 	});
 
 	const user = {
@@ -29,15 +28,18 @@ const UserSignUp = () => {
 				.then(res => {
 					console.log(res.data);
 					history.push("/signin");
-					localStorage.setItem("Errors", null)
 				})
 				.catch(err => {
 					values.errors = err.response.data.errors;
-					localStorage.setItem("Errors", values.errors)
+					setValues((values) => ({
+						...values,
+						errors: err.response.data.errors
+					}));
 				})
 		}
 	};
 
+	console.log(values.errors)
 	const handleFirstNameChange = (event) => {
 		event.persist();
 		setValues((values) => ({
@@ -74,16 +76,34 @@ const UserSignUp = () => {
 		}));
 	};
 
-	let errors
+	let validationErrors = {
+		display: "block",
+	};
 
-	if(localStorage.Errors !== null) {
-		errors = <Error />
+	if (values.errors.length === 0 || values.errors === null) {
+		validationErrors = {
+			display: "none"
+		}
+	} else if (values.errors.length > 0) {
+		validationErrors = {
+			display: "block"
+		}
 	}
-
 	return (
 		<div className="bounds">
 			<div className="grid-33 centered signin">
-				{errors}
+				<div id="errors" style={validationErrors}>
+					<h2 className="validation--errors--label">Validation errors</h2>
+					<div className="validation-errors">
+						<ul>
+							<li>{values.errors[0]}</li>
+							<li>{values.errors[1]}</li>
+							<li>{values.errors[2]}</li>
+							<li>{values.errors[3]}</li>
+							<li>{values.errors[4]}</li>
+						</ul>
+					</div>
+				</div>
 				<h1>Sign Up</h1>
 				<div>
 					<form>
