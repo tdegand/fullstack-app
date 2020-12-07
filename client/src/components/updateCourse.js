@@ -177,8 +177,10 @@ const UpdateCourse = () => {
 						<Link
 							className="button"
 							type="submit"
-							onClick={updateCourse}
-						>
+							onClick={(e) => {
+								updateCourse()
+								e.preventDefault()
+							}}>
 							Update Course
 						</Link>
 						<Link to={{ pathname: `/courses/${id}` }}>
