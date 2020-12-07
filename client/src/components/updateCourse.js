@@ -89,7 +89,10 @@ const UpdateCourse = () => {
 			.then(() => {
 				history.push(`/courses/${id}`);
 				window.location.reload();
-			});
+			})
+			.catch(err => {
+				console.log(err.response.data.errors);
+			})
 	};
 
 	return (

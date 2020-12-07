@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import Error from "./error";
 
 const UserSignUp = () => {
 	const [values, setValues] = useState({
@@ -8,11 +10,32 @@ const UserSignUp = () => {
 		emailAddress: "",
 		password: "",
 		confirmPass: "",
-		errors: [],
+		errors: {}
 	});
 
+	const user = {
+		firstName: values.firstName,
+		lastName: values.lastName,
+		emailAddress: values.emailAddress,
+		password: values.password,
+	};
+
+	let history = useHistory();
+
 	const submit = () => {
-		
+		if (values.password === values.confirmPass) {
+			axios
+				.post("http://localhost:5000/api/users", user)
+				.then(res => {
+					console.log(res.data);
+					history.push("/signin");
+					localStorage.setItem("Errors", null)
+				})
+				.catch(err => {
+					values.errors = err.response.data.errors;
+					localStorage.setItem("Errors", values.errors)
+				})
+		}
 	};
 
 	const handleFirstNameChange = (event) => {
@@ -51,12 +74,19 @@ const UserSignUp = () => {
 		}));
 	};
 
+	let errors
+
+	if(localStorage.Errors !== null) {
+		errors = <Error />
+	}
+
 	return (
 		<div className="bounds">
 			<div className="grid-33 centered signin">
+				{errors}
 				<h1>Sign Up</h1>
 				<div>
-					<form submit={submit}>
+					<form>
 						<div>
 							<input
 								id="firstName"
@@ -113,14 +143,10 @@ const UserSignUp = () => {
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
-							<button className="button" type="submit">
+							<Link className="button" type="submit" onClick={submit}>
 								Sign Up
-							</button>
-							<Link
-								className="button button-secondary"
-								to="/"
-								onclick="event.preventDefault(); location.href='index.html';"
-							>
+							</Link>
+							<Link className="button button-secondary" to="/">
 								Cancel
 							</Link>
 						</div>

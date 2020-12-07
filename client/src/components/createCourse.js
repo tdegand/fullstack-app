@@ -64,7 +64,10 @@ const CreateCourse = () => {
 			.then((res) => {
 				history.push(`/`);
 				window.location.reload();
-			});
+			})
+			.catch(err => {
+				console.log(err.response.data.errors);
+			})
 	};
 
 	return (

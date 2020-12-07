@@ -23,6 +23,8 @@ const App = (props) => {
 		setAuthTokens(data);
 	  }
 	
+	  console.log(localStorage);
+	
 	return (
 		<AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens}}>
 			<Router>
