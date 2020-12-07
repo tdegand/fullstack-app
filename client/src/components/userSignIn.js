@@ -35,6 +35,7 @@ const UserSignIn = () => {
 					setAuthTokens(result.data);
 					setLoggedIn(true);
 					history.push("/")
+					window.location.reload()
 				} else {
 					setIsError(true);
 					return isLoggedIn;
