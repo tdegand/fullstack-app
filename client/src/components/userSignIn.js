@@ -16,7 +16,6 @@ const UserSignIn = () => {
 	if (userName !== "" || password !== "") {
 		localStorage.setItem("access-token", encodedCredentials);
 	}
-
 	//sets authorization header for axios calls
 	const options = {
 		headers: {
@@ -38,10 +37,12 @@ const UserSignIn = () => {
 					history.push("/")
 				} else {
 					setIsError(true);
+					return isLoggedIn;
 				}
 			})
 			.catch((e) => {
 				setIsError(true);
+				return isError;
 			});
 	};
 
@@ -88,7 +89,10 @@ const UserSignIn = () => {
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
-							<Link className="button" type="submit" onClick={getLogin}>
+							<Link className="button" type="submit" to="/" onClick={(e) => {
+								getLogin()
+								e.preventDefault()
+							}}>
 								Sign In
 							</Link>
 							<Link className="button button-secondary" to="/">

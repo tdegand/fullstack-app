@@ -164,8 +164,10 @@ const UserSignUp = () => {
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
-							<Link className="button" type="submit" onClick={submit}>
-								Sign Up
+							<Link className="button" type="submit" to="/" onClick={(e) => {
+								submit()
+								e.preventDefault()
+							}}>Sign Up
 							</Link>
 							<Link className="button button-secondary" to="/">
 								Cancel
