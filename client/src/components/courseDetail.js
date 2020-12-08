@@ -36,7 +36,6 @@ class Coursedetail extends React.PureComponent {
 	render() {
 		const { context } = this.props;
 		const authUser = context.authenticatedUser;
-		console.log(this.state.course)
 
 		return (
 			<div>
