@@ -14,7 +14,7 @@ import "./global.css";
 import withContext from "./context";
 import PrivateRoute from "./privateRoutes";
 
-
+import withContext from "./context";
 const HeaderWithContext = withContext(Header);
 const CourseWithContext = withContext(Courses);
 const CoursedetailWithContext = withContext(Coursedetail);
