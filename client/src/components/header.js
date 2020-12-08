@@ -6,8 +6,8 @@ class Header extends React.PureComponent {
 	render() {
 
 		const context = this.props;
-		const authUser = context.authenticatedUser;
-		console.log(context)
+		const authUser = context;
+		console.log(authUser)
 		
 
 		return (
