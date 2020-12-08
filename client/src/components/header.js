@@ -1,29 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SignedInLinks from "../components/signedInLinks";
-import SignedOutLinks from "../components/signedOutLinks";
 
-const Header = () => {
-	// let isAuthenticated = useAuth().authTokens;
-	// let loggedIn;
+class Header extends React.PureComponent {
+	
+	render() {
 
-	// //Checks for signed in user to dynamically render the links in the header
-	// if (isAuthenticated === null) {
-	// 	loggedIn = false;
-	// } else {
-	// 	loggedIn = true;
-	// }
+		const { context } = this.props;
+		const authUser = context.authenticatedUser;
+		console.log(authUser)
 
-	return (
-		<div className="header">
-			<div className="bounds">
-				<Link to="/">
-					<h1 className="header--logo">Courses</h1>
-				</Link>
-				{/* <nav>{!loggedIn ? <SignedOutLinks /> : <SignedInLinks />}</nav> */}
+		return (
+			<div>
+				<div className="header">
+					<div className="bounds">
+						<h1 className="header--logo">Courses</h1>
+						<nav>
+							{authUser ? (
+								<React.Fragment>
+									<span>
+										Welcome {""}
+										{authUser.authUser.firstName}
+									</span>
+									<Link to="/signout">Sign out</Link>
+								</React.Fragment>
+							) : (
+								<React.Fragment>
+									<Link className="signup" to="/signup">
+										SignUp
+									</Link>
+									<Link className="signin" to="/signin">
+										SignIn
+									</Link>
+								</React.Fragment>
+							)}
+						</nav>
+					</div>
+				</div>
 			</div>
-		</div>
-	);
-};
-
+		);
+	}
+}
 export default Header;
