@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header";
 import Courses from "./components/courses";
 import Coursedetail from "./components/courseDetail";
@@ -7,10 +8,11 @@ import UpdateCourse from "./components/updateCourse";
 import UserSignIn from "./components/userSignIn";
 import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
+import "./global.css";
+
+
 import withContext from "./context";
 import PrivateRoute from "./privateRoutes";
-import "./global.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 const HeaderWithContext = withContext(Header);
