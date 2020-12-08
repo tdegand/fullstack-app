@@ -5,9 +5,10 @@ class Header extends React.PureComponent {
 	
 	render() {
 
-		const { context } = this.props;
+		const context = this.props;
 		const authUser = context.authenticatedUser;
-		console.log(authUser)
+		console.log(context.authenticatedUser)
+		
 
 		return (
 			<div>
@@ -19,7 +20,7 @@ class Header extends React.PureComponent {
 								<React.Fragment>
 									<span>
 										Welcome {""}
-										{authUser.authUser.firstName}
+										{authUser.firstName}
 									</span>
 									<Link to="/signout">Sign out</Link>
 								</React.Fragment>
