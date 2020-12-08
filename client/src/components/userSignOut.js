@@ -8,7 +8,7 @@ const UserSignOut = () => {
 		window.location.reload();
 	};
 	return (
-		<Link className="signin" to="/" onClick={signOut}>
+		<Link className="signin" to="/">
 			Sign Out
 		</Link>
 	);

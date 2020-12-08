@@ -1,98 +1,47 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 
 const UserSignUp = () => {
-	const [values, setValues] = useState({
-		firstName: "",
-		lastName: "",
-		emailAddress: "",
-		password: "",
-		confirmPass: "",
-		errors: []
-	});
-
-	//user data sent to api to create a new user
-	const user = {
-		firstName: values.firstName,
-		lastName: values.lastName,
-		emailAddress: values.emailAddress,
-		password: values.password,
-	};
-
-	let history = useHistory();
-
-	//axios POST call to create the user
-	const submit = () => {
-		if (values.password === values.confirmPass) {
-			axios
-				.post("http://localhost:5000/api/users", user)
-				.then(res => {
-					history.push("/signin");
-				})
-				.catch(err => {
-					values.errors = err.response.data.errors;
-					setValues((values) => ({
-						...values,
-						errors: err.response.data.errors
-					}));
-				})
-		}
-	};
-	const handleFirstNameChange = (event) => {
-		event.persist();
-		setValues((values) => ({
-			...values,
-			firstName: event.target.value,
-		}));
-	};
-	const handleLastNameChange = (event) => {
-		event.persist();
-		setValues((values) => ({
-			...values,
-			lastName: event.target.value,
-		}));
-	};
-	const handleEmailChange = (event) => {
-		event.persist();
-		setValues((values) => ({
-			...values,
-			emailAddress: event.target.value,
-		}));
-	};
-	const handlePasswordChange = (event) => {
-		event.persist();
-		setValues((values) => ({
-			...values,
-			password: event.target.value,
-		}));
-	};
-	const handleConfirmPasswordChange = (event) => {
-		event.persist();
-		setValues((values) => ({
-			...values,
-			confirmPass: event.target.value,
-		}));
-	};
-
-	//This will show validation errors if the API returns errors
-	let validationErrors = {
-		display: "block",
-	};
-
-	if (values.errors.length === 0 || values.errors === null) {
-		validationErrors = {
-			display: "none"
-		}
-	} else if (values.errors.length > 0) {
-		validationErrors = {
-			display: "block"
-		}
-	}
+	
+	// const handleFirstNameChange = (event) => {
+	// 	event.persist();
+	// 	setValues((values) => ({
+	// 		...values,
+	// 		firstName: event.target.value,
+	// 	}));
+	// };
+	// const handleLastNameChange = (event) => {
+	// 	event.persist();
+	// 	setValues((values) => ({
+	// 		...values,
+	// 		lastName: event.target.value,
+	// 	}));
+	// };
+	// const handleEmailChange = (event) => {
+	// 	event.persist();
+	// 	setValues((values) => ({
+	// 		...values,
+	// 		emailAddress: event.target.value,
+	// 	}));
+	// };
+	// const handlePasswordChange = (event) => {
+	// 	event.persist();
+	// 	setValues((values) => ({
+	// 		...values,
+	// 		password: event.target.value,
+	// 	}));
+	// };
+	// const handleConfirmPasswordChange = (event) => {
+	// 	event.persist();
+	// 	setValues((values) => ({
+	// 		...values,
+	// 		confirmPass: event.target.value,
+	// 	}));
+	// };
 	return (
 		<div className="bounds">
 			<div className="grid-33 centered signin">
-				<div id="errors" style={validationErrors}>
+				{/* <div id="errors" style={validationErrors}>
 					<h2 className="validation--errors--label">Validation errors</h2>
 					<div className="validation-errors">
 						<ul>
@@ -103,7 +52,7 @@ const UserSignUp = () => {
 							<li>{values.errors[4]}</li>
 						</ul>
 					</div>
-				</div>
+				</div> */}
 				<h1>Sign Up</h1>
 				<div>
 					<form>
@@ -114,8 +63,8 @@ const UserSignUp = () => {
 								type="text"
 								className=""
 								placeholder="First Name"
-								value={values.firstName}
-								onChange={handleFirstNameChange}
+								// value={values.firstName}
+								// onChange={handleFirstNameChange}
 							/>
 						</div>
 						<div>
@@ -125,8 +74,8 @@ const UserSignUp = () => {
 								type="text"
 								className=""
 								placeholder="Last Name"
-								value={values.lastName}
-								onChange={handleLastNameChange}
+								// value={values.lastName}
+								// onChange={handleLastNameChange}
 							/>
 						</div>
 						<div>
@@ -136,8 +85,8 @@ const UserSignUp = () => {
 								type="text"
 								className=""
 								placeholder="Email Address"
-								value={values.emailAddress}
-								onChange={handleEmailChange}
+								// value={values.emailAddress}
+								// onChange={handleEmailChange}
 							/>
 						</div>
 						<div>
@@ -147,8 +96,8 @@ const UserSignUp = () => {
 								type="password"
 								className=""
 								placeholder="Password"
-								value={values.password}
-								onChange={handlePasswordChange}
+								// value={values.password}
+								// onChange={handlePasswordChange}
 							/>
 						</div>
 						<div>
@@ -158,13 +107,12 @@ const UserSignUp = () => {
 								type="password"
 								className=""
 								placeholder="Confirm Password"
-								value={values.confirmPass}
-								onChange={handleConfirmPasswordChange}
+								// value={values.confirmPass}
+								// onChange={handleConfirmPasswordChange}
 							/>
 						</div>
 						<div className="grid-100 pad-bottom">
 							<Link className="button" type="submit" to="/" onClick={(e) => {
-								submit()
 								e.preventDefault()
 							}}>Sign Up
 							</Link>

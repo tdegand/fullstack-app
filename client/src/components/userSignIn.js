@@ -1,73 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../authContext";
 import { Consumer } from "../context";
-import axios from "axios";
 
 const UserSignIn = () => {
-	const [isLoggedIn, setLoggedIn] = useState(false);
-	const [isError, setIsError] = useState(false);
-	const [userName, setUserName] = useState("");
-	const [password, setPassword] = useState("");
-	const { setAuthTokens } = useAuth();
-	const encodedCredentials = btoa(`${userName.userName}:${password.password}`);
-
-
-	//sets "access-token" used for authorization header in axios calls
-	if (userName !== "" || password !== "") {
-		localStorage.setItem("access-token", encodedCredentials);
-	}
-	//sets authorization header for axios calls
-	const options = {
-		headers: {
-			"Authorization": `Basic ${encodedCredentials}`,
-		},
-	};
-
-	let history = useHistory();
-
-	//checks if the user exists and runs them through the authentication process of the API
-	const getLogin = () => {
-		axios
-			.get("http://localhost:5000/api/users", options, {})
-			.then((result) => {
-				if (result.status === 200) {
-					setAuthTokens(result.data);
-					setLoggedIn(true);
-					history.push("/")
-					window.location.reload()
-				} else {
-					setIsError(true);
-					return isLoggedIn;
-				}
-			})
-			.catch((e) => {
-				setIsError(true);
-				return isError;
-			});
-	};
-
-
-
+	
 	return (
 		<Consumer>
-			{ context => {
-				console.log(context)
-				const handleUsername = (event) => {
-					// event.persist();
-					context.setGlobalState((values) => ({
-						...values,
-						userName: event.target.value,
-					}));
-				};
+			{(context) => {
+				// console.log(context);
+				// const handleUsername = (event) => {
+				// 	// event.persist();
+				// 	setGlobalState((values) => ({
+				// 		...values,
+				// 		userName: event.target.value,
+				// 	}));
+				// };
 
-				const handlePassword = (event) => {
-					event.persist();
-					context.setGlobalState((values) => ({
-						...values,
-						password: event.target.value,
-					}));
-				};
+				// const handlePassword = (event) => {
+				// 	event.persist();
+				// 	setGlobalState((values) => ({
+				// 		...values,
+				// 		password: event.target.value,
+				// 	}));
+				// };
 				return (
 					<div className="bounds">
 						<div className="grid-33 centered signin">
@@ -81,7 +36,7 @@ const UserSignIn = () => {
 											type="text"
 											className=""
 											placeholder="Email Address"
-											onChange={handleUsername}
+											// onChange={handleUsername}
 										/>
 									</div>
 									<div>
@@ -91,30 +46,34 @@ const UserSignIn = () => {
 											type="password"
 											className=""
 											placeholder="Password"
-											onChange={handlePassword}
+											// onChange={handlePassword}
 										/>
 									</div>
 									<div className="grid-100 pad-bottom">
-										<Link className="button" type="submit" to="/" onClick={(e) => {
-											getLogin()
-											e.preventDefault()
-										}}>
+										<Link
+											className="button"
+											type="submit"
+											to="/"
+											onClick={(e) => {
+												e.preventDefault();
+											}}
+										>
 											Sign In
-								</Link>
+										</Link>
 										<Link className="button button-secondary" to="/">
 											Cancel
-								</Link>
+										</Link>
 									</div>
 								</form>
 							</div>
 							<p>&nbsp;</p>
 							<p>
-								Don't have a user account? <a href="sign-up.html">Click here</a> to
-						sign up!
-					</p>
+								Don't have a user account? <a href="sign-up.html">Click here</a>{" "}
+								to sign up!
+							</p>
 						</div>
 					</div>
-				)
+				);
 			}}
 		</Consumer>
 	);
