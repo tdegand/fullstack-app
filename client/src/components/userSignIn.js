@@ -12,6 +12,7 @@ export default class UserSignIn extends Component {
 		};
 	}
 
+	//handles input fields and updates state
 	handleEmailChange = (event) => {
 		event.persist();
 		this.setState({ emailAddress: event.target.value });
@@ -21,6 +22,7 @@ export default class UserSignIn extends Component {
 		this.setState({ password: event.target.value });
 	};
 
+	//handles the sign in function and calls the context method signin to authenticate a user
 	signIn = () => {
 		const { context } = this.props;
 

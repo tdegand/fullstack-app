@@ -30,6 +30,7 @@ export class Provider extends Component {
 		);
 	}
 
+	//Sign in method to sign in and set the global authenticated state
 	signIn = async (emailAddress, password) => {
 		const user = await this.data.getUser(emailAddress, password);
 		if (user !== null) {

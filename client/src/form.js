@@ -34,6 +34,7 @@ export default (props) => {
 	);
 };
 
+//handles the display of returned errors from the API
 function ErrorsDisplay({ errors }) {
 	let errorsDisplay = null;
 

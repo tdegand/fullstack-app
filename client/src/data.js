@@ -30,6 +30,7 @@ export default class Data {
 		return fetch(url, options);
 	}
 
+	//api call to check if the user exists
 	async getUser(username, password) {
 		const response = await this.api(`/users`, "GET", null, true, {
 			username,
@@ -44,6 +45,7 @@ export default class Data {
 		}
 	}
 
+	//api call to create a user
 	async createUser(user) {
 		const response = await this.api("/users", "POST", user);
 		if (response.status === 201) {
@@ -57,6 +59,7 @@ export default class Data {
 		}
 	}
 
+	//api call to create a course
 	async createCourse(course, username, password) {
 		const response = await this.api("/courses", "POST", course, true, {
 			username,
@@ -72,6 +75,8 @@ export default class Data {
 			throw new Error();
 		}
 	}
+
+	//api call to update a course
 	async updateCourse(course, id, username, password) {
 		const response = await this.api(`/courses/${id}`, "PUT", course, true, {
 			username,
@@ -87,6 +92,8 @@ export default class Data {
 			throw new Error();
 		}
 	}
+
+	//API call to delete course
 	async deleteCourse(id, username, password) {
 		const response = await this.api(`/courses/${id}`, "DELETE", null, true, {
 			username,

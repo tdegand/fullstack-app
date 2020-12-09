@@ -15,6 +15,7 @@ export default class UserSignUp extends Component {
 		};
 	}
 
+	//handles input elements and updates state
 	handleFirstNameChange = (event) => {
 		event.persist();
 		this.setState({ firstName: event.target.value });
@@ -36,6 +37,8 @@ export default class UserSignUp extends Component {
 		this.setState({ confirmPassword: event.target.value });
 	};
 
+	//creates a user and submits the data to a databse using the context data createUser
+	//then it signs the created user into the site
 	createUser = () => {
 		const { context } = this.props;
 
