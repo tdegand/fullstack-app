@@ -53,9 +53,9 @@ export default class UserSignUp extends Component {
 
         context.data
         .createUser(user)
-        .then(() => {
+        .then(res => {
             context.actions.signIn(emailAddress, password)
-            .then(() => {
+            .then(res => {
                 this.props.history.push("/")
             })
         })
