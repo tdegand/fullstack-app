@@ -57,12 +57,15 @@ class Coursedetail extends React.PureComponent {
 										>
 											Delete Course
 										</Link>
+										<Link className="button button-secondary" to="/">
+												Return to List
+										</Link>
 									</React.Fragment>
 								) : (
 										<React.Fragment>
 											<Link className="button button-secondary" to="/">
 												Return to List
-										</Link>
+											</Link>
 										</React.Fragment>
 									)}
 							</span>
