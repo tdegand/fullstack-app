@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Form from "../form";
 
 export default class UserSignUp extends Component {
@@ -54,19 +55,20 @@ export default class UserSignUp extends Component {
 			emailAddress,
 		};
 
-		context.data.createUser(user)
-		.then((errors) => {
-			if (errors.length) {
-				this.setState({ errors });
-			} else {
-				context.actions.signIn(emailAddress, password).then((res) => {
-					this.props.history.push("/");
-				});
-			}
-		})
-		.catch((errors) => {
-			console.log(errors);
-		});
+		context.data
+			.createUser(user)
+			.then((errors) => {
+				if (errors.length) {
+					this.setState({ errors });
+				} else {
+					context.actions.signIn(emailAddress, password).then((res) => {
+						this.props.history.push("/");
+					});
+				}
+			})
+			.catch((errors) => {
+				console.log(errors);
+			});
 	};
 
 	cancel = () => {
@@ -138,6 +140,10 @@ export default class UserSignUp extends Component {
 							</React.Fragment>
 						)}
 					/>
+					<p>
+						Already have a user account?
+						<Link to="/signin">Click here</Link> to sign in!
+					</p>
 				</div>
 			</div>
 		);
