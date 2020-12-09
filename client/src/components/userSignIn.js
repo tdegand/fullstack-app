@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class UserSignIn extends Component {
-    constructor() {
+	constructor() {
 		super();
 
 		this.state = {
@@ -10,27 +10,27 @@ export default class UserSignIn extends Component {
 			password: "",
 			errors: [],
 		};
-    }
-    
-    handleEmailChange = (event) => {
+	}
+
+	handleEmailChange = (event) => {
 		event.persist();
 		this.setState({ emailAddress: event.target.value });
 	};
 	handlePasswordChange = (event) => {
 		event.persist();
 		this.setState({ password: event.target.value });
-    };
-    
-    signIn = () => {
-        const { context } = this.props;
+	};
 
-        context.actions
-        .signIn(this.state.emailAddress, this.state.password)
-        .then(res => {
-            console.log('success')
-            this.props.history.push("/")
-        })
-    }
+	signIn = () => {
+		const { context } = this.props;
+
+		context.actions
+			.signIn(this.state.emailAddress, this.state.password)
+			.then((res) => {
+				console.log("success");
+				this.props.history.push("/");
+			});
+	};
 
 	render() {
 		return (

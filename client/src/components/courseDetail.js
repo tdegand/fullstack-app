@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import axios from 'axios'
+import axios from "axios";
 
 class Coursedetail extends React.PureComponent {
-
 	constructor() {
 		super();
 
 		this.state = {
 			course: [],
-			owner: []
+			owner: [],
 		};
 	}
 
@@ -19,7 +18,7 @@ class Coursedetail extends React.PureComponent {
 	}
 
 	getCourseDetails = () => {
-		const path = window.location.pathname.split('/');
+		const path = window.location.pathname.split("/");
 		const id = path[2];
 		axios
 			.get(`http://localhost:5000/api/courses/${id}`)
@@ -30,8 +29,7 @@ class Coursedetail extends React.PureComponent {
 				this.setState({ owner });
 			})
 			.catch((res) => console.log("error", res));
-	}
-
+	};
 
 	render() {
 		const { context } = this.props;
@@ -47,27 +45,26 @@ class Coursedetail extends React.PureComponent {
 									<React.Fragment>
 										<Link
 											className="button"
-											to={{ pathname: `/courses/${this.state.course.id}/update` }}
+											to={{
+												pathname: `/courses/${this.state.course.id}/update`,
+											}}
 										>
 											Update Course
 										</Link>
-										<Link
-											className="button"
-											to="/"
-										>
+										<Link className="button" to="/">
 											Delete Course
 										</Link>
 										<Link className="button button-secondary" to="/">
-												Return to List
+											Return to List
 										</Link>
 									</React.Fragment>
 								) : (
-										<React.Fragment>
-											<Link className="button button-secondary" to="/">
-												Return to List
-											</Link>
-										</React.Fragment>
-									)}
+									<React.Fragment>
+										<Link className="button button-secondary" to="/">
+											Return to List
+										</Link>
+									</React.Fragment>
+								)}
 							</span>
 						</div>
 					</div>
@@ -77,7 +74,7 @@ class Coursedetail extends React.PureComponent {
 						<div className="course--header">
 							<h4 className="course--label">Course</h4>
 							<h3 className="course--title">{this.state.course.title}</h3>
-								<p>{`By ${this.state.owner.firstName} ${this.state.owner.lastName}`}</p>
+							<p>{`By ${this.state.owner.firstName} ${this.state.owner.lastName}`}</p>
 						</div>
 						<div className="course--description">
 							<ReactMarkdown>{this.state.course.description}</ReactMarkdown>
@@ -93,14 +90,16 @@ class Coursedetail extends React.PureComponent {
 								<li className="course--stats--list--item">
 									<h4>Materials Needed</h4>
 									<ul>
-										<ReactMarkdown>{this.state.course.materialsNeeded}</ReactMarkdown>
+										<ReactMarkdown>
+											{this.state.course.materialsNeeded}
+										</ReactMarkdown>
 									</ul>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div >
+			</div>
 		);
 	}
 }

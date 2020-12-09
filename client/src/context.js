@@ -1,53 +1,50 @@
-import React, { Component } from 'react';
-import Cookies from 'js-cookie';
-import Data from './data';
+import React, { Component } from "react";
+import Cookies from "js-cookie";
+import Data from "./data";
 
 const Context = React.createContext();
 
 export class Provider extends Component {
+	constructor() {
+		super();
+		this.data = new Data(); // call Data Class
+		this.state = {
+			authenticatedUser: Cookies.getJSON("authenticatedUser") || null,
+		};
+	}
 
-  constructor() {
-    super()
-    this.data = new Data() // call Data Class
-    this.state = {
-      authenticatedUser: Cookies.getJSON("authenticatedUser") || null
-    }
-  }
+	signIn = async (username, password) => {
+		const user = await this.data.getUser(username, password);
+		if (user !== null) {
+			this.setState(() => {
+				return {
+					authenticatedUser: user,
+				};
+			});
+			console.log("did I get this far?");
+			Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
+		}
+		return user;
+	};
 
-  signIn = async (username, password) => {
-    const user = await this.data.getUser(username, password);
-    if (user !== null) {
-      this.setState(() => {
-        return {
-          authenticatedUser: user,
-        };
-      });
-      console.log("did I get this far?")
-      Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1});
-    }
-    return user;
-  }
+	signOut = () => {
+		this.setState({ authenticatedUser: null });
+		Cookies.remove("authenticatedUser");
+	};
 
-  signOut = () => {
-    this.setState({ authenticatedUser: null });
-    Cookies.remove('authenticatedUser');
-  }
-
-  render() {
-    const value = {
-      authenticatedUser: this.state.authenticatedUser,
-      data: this.data,
-      actions: {
-        signIn: this.signIn,
-        signOut: this.signOut
-      },
-    };
-    return (
-      <Context.Provider value={value}>
-        {this.props.children}
-      </Context.Provider>
-    );
-  }
+	render() {
+		const value = {
+			authenticatedUser: this.state.authenticatedUser,
+			data: this.data,
+			actions: {
+				signIn: this.signIn,
+				signOut: this.signOut,
+			},
+		};
+		return (
+			<Context.Provider value={value}>{this.props.children}</Context.Provider>
+		);
+	}
 }
 
 export const Consumer = Context.Consumer;
@@ -59,11 +56,11 @@ export const Consumer = Context.Consumer;
  */
 
 export default function withContext(Component) {
-  return function ContextComponent(props) {
-    return (
-      <Context.Consumer>
-        {(context) => <Component {...props} context={context} />}
-      </Context.Consumer>
-    );
-  }
+	return function ContextComponent(props) {
+		return (
+			<Context.Consumer>
+				{(context) => <Component {...props} context={context} />}
+			</Context.Consumer>
+		);
+	};
 }

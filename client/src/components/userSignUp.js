@@ -17,7 +17,7 @@ export default class UserSignUp extends Component {
 
 	handleFirstNameChange = (event) => {
 		event.persist();
-		this.setState({firstName: event.target.value });
+		this.setState({ firstName: event.target.value });
 	};
 	handleLastNameChange = (event) => {
 		event.persist();
@@ -34,35 +34,31 @@ export default class UserSignUp extends Component {
 	handleConfirmPasswordChange = (event) => {
 		event.persist();
 		this.setState({ confirmPassword: event.target.value });
-    };
-    
-    createUser = () => {
-        const { context } = this.props;
+	};
 
-        const firstName = this.state.firstName;
-        const lastName = this.state.lastName;
-        const password = this.state.password;
-        const emailAddress = this.state.emailAddress;
+	createUser = () => {
+		const { context } = this.props;
 
-        const user = {
-            firstName,
-            lastName,
-            password,
-            emailAddress,
-        }
+		const firstName = this.state.firstName;
+		const lastName = this.state.lastName;
+		const password = this.state.password;
+		const emailAddress = this.state.emailAddress;
 
-        context.data
-        .createUser(user)
-        .then(res => {
-            context.actions.signIn(emailAddress, password)
-            .then(res => {
-                this.props.history.push("/")
-            })
-        })
-    }
+		const user = {
+			firstName,
+			lastName,
+			password,
+			emailAddress,
+		};
+
+		context.data.createUser(user).then((res) => {
+			context.actions.signIn(emailAddress, password).then((res) => {
+				this.props.history.push("/");
+			});
+		});
+	};
 
 	render() {
-    
 		return (
 			<div className="bounds">
 				<div className="grid-33 centered signin">

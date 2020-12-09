@@ -10,7 +10,6 @@ import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
 import "./global.css";
 
-
 import withContext from "./context";
 import PrivateRoute from "./privateRoutes";
 
@@ -22,8 +21,6 @@ const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 // const CreateCourseWithContext = withContext(CreateCourse);
 // const UpdateCourseWithContext = withContext(UpdateCourse);
-
-
 
 const App = () => {
 	return (
