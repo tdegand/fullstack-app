@@ -14,6 +14,7 @@ export default class UpdateCourse extends Component {
 		};
 	}
 
+	//handles the input elements and sets the state for this component
 	handleTitle = (event) => {
 		event.persist();
 		this.setState({ title: event.target.value });
@@ -31,6 +32,7 @@ export default class UpdateCourse extends Component {
 		this.setState({ materialsNeeded: event.target.value });
 	};
 
+	//submits the information from state to the APi to update the course
 	updateCourse = () => {
 		const { context } = this.props;
 
@@ -52,13 +54,14 @@ export default class UpdateCourse extends Component {
 			userId,
 		};
 
+		//uses contest to call updateCourse method from data.js
 		context.data
 			.updateCourse(course, id, username, password)
 			.then((errors) => {
 				if (errors.length) {
 					this.setState({ errors });
 				} else {
-					this.props.history.push("./");
+					this.props.history.push("/");
 				}
 			})
 			.catch((errors) => {

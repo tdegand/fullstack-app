@@ -16,7 +16,7 @@ class Coursedetail extends React.PureComponent {
 	componentDidMount() {
 		this.getCourseDetails();
 	}
-
+	//gets course details when you click on the course you want to view
 	getCourseDetails = () => {
 		const path = window.location.pathname.split("/");
 		const id = path[2];
@@ -31,6 +31,7 @@ class Coursedetail extends React.PureComponent {
 			.catch((res) => console.log("error", res));
 	};
 
+	//This will delete the course Using the context method "deleteCourse" from data.js
 	deleteCourse = () => {
 		const { context } = this.props;
 		const username = context.authenticatedUser.emailAddress;

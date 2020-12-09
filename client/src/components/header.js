@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 class Header extends React.PureComponent {
 	render() {
+
+		//Using context dynamically render links based upon the authenticated stated of the application
 		const { context } = this.props;
 		const authUser = context.authenticatedUser;
 

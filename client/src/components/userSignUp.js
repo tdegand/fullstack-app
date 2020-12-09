@@ -51,11 +51,23 @@ export default class UserSignUp extends Component {
 			emailAddress,
 		};
 
-		context.data.createUser(user).then((res) => {
-			context.actions.signIn(emailAddress, password).then((res) => {
-				this.props.history.push("/");
-			});
+		context.data.createUser(user)
+		.then((errors) => {
+			if (errors.length) {
+				this.setState({ errors });
+			} else {
+				context.actions.signIn(emailAddress, password).then((res) => {
+					this.props.history.push("/");
+				});
+			}
+		})
+		.catch((errors) => {
+			console.log(errors);
 		});
+	};
+
+	cancel = () => {
+		this.props.history.push("/");
 	};
 
 	render() {
@@ -66,8 +78,8 @@ export default class UserSignUp extends Component {
 					<Form
 						cancel={this.cancel}
 						errors={this.state.errors}
-						submit={this.updateCourse}
-						submitButtonText="Update Course"
+						submit={this.createUser}
+						submitButtonText="Sign Up"
 						elements={() => (
 							<React.Fragment>
 								<div>

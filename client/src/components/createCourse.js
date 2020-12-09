@@ -14,6 +14,7 @@ export default class CreateCourse extends Component {
 		};
 	}
 
+	//handles the input elements and sets the state for this component
 	handleTitle = (event) => {
 		event.persist();
 		this.setState({ title: event.target.value });
@@ -31,6 +32,7 @@ export default class CreateCourse extends Component {
 		this.setState({ materialsNeeded: event.target.value });
 	};
 
+	//submits the information from state to the APi to create the course
 	createCourse = () => {
 		const { context } = this.props;
 
@@ -50,11 +52,22 @@ export default class CreateCourse extends Component {
 			userId,
 		};
 
+		//uses contest to call createCourse method from data.js
 		context.data
 			.createCourse(course, username, password)
-			.then((res) => this.props.history.push("/"));
+			.then((errors) => {
+				if (errors.length) {
+					this.setState({ errors });
+				} else {
+					this.props.history.push("/");
+				}
+			})
+			.catch((errors) => {
+				console.log(errors);
+			});
 	};
 
+	//handles form cancel button
 	cancel = () => {
 		this.props.history.push("/");
 	};
@@ -66,7 +79,7 @@ export default class CreateCourse extends Component {
 					cancel={this.cancel}
 					errors={this.state.errors}
 					submit={this.createCourse}
-					submitButtonText="Update Course"
+					submitButtonText="Create Course"
 					elements={() => (
 						<React.Fragment>
 							<div className="grid-66">

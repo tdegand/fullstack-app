@@ -6,7 +6,7 @@ const axios = require("axios");
 function Courses() {
 	const [course, setCourse] = useState([]);
 
-	//Gets all courses
+	//Gets all courses and displays them
 	useEffect(() => {
 		axios
 			.get(`http://localhost:5000/api/courses`)
