@@ -11,7 +11,9 @@ class Header extends React.PureComponent {
 			<div>
 				<div className="header">
 					<div className="bounds">
-						<h1 className="header--logo">Courses</h1>
+						<Link to="/">
+							<h1 className="header--logo">Courses</h1>
+						</Link>
 						<nav>
 							{authUser ? (
 								<React.Fragment>

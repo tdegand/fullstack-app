@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header";
 import Courses from "./components/courses";
 import Coursedetail from "./components/courseDetail";
-// import CreateCourse from "./components/createCourse";
-// import UpdateCourse from "./components/updateCourse";
+import CreateCourse from "./components/createCourse";
+import UpdateCourse from "./components/updateCourse";
 import UserSignIn from "./components/userSignIn";
 import UserSignUp from "./components/userSignUp";
 import UserSignOut from "./components/userSignOut";
@@ -19,8 +19,8 @@ const CoursedetailWithContext = withContext(Coursedetail);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
-// const CreateCourseWithContext = withContext(CreateCourse);
-// const UpdateCourseWithContext = withContext(UpdateCourse);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 
 const App = () => {
 	return (
@@ -33,14 +33,14 @@ const App = () => {
 						<Route path="/signup" component={UserSignUpWithContext}></Route>
 						<Route path="/signin" component={UserSignInWithContext}></Route>
 						<Route path="/signout" component={UserSignOutWithContext}></Route>
-						{/* <PrivateRoute
+						<PrivateRoute
 							path="/courses/create"
 							component={CreateCourseWithContext}
 						></PrivateRoute>
 						<PrivateRoute
 							path="/courses/:id/update"
 							component={UpdateCourseWithContext}
-						></PrivateRoute> */}
+						></PrivateRoute>
 						<Route
 							path="/courses/:id"
 							component={CoursedetailWithContext}

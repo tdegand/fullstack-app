@@ -31,6 +31,17 @@ class Coursedetail extends React.PureComponent {
 			.catch((res) => console.log("error", res));
 	};
 
+	deleteCourse = () => {
+		const { context } = this.props;
+		const username = context.authenticatedUser.emailAddress;
+		const password = context.authenticatedUser.password;
+		const id = this.state.course.id;
+
+		context.data
+			.deleteCourse(id, username, password)
+			.then((res) => (window.location.href = "/"));
+	};
+
 	render() {
 		const { context } = this.props;
 		const authUser = context.authenticatedUser;
@@ -41,7 +52,7 @@ class Coursedetail extends React.PureComponent {
 					<div className="bounds">
 						<div className="grid-100">
 							<span>
-								{authUser ? (
+								{authUser && authUser.id === this.state.owner.id ? (
 									<React.Fragment>
 										<Link
 											className="button"
@@ -51,7 +62,7 @@ class Coursedetail extends React.PureComponent {
 										>
 											Update Course
 										</Link>
-										<Link className="button" to="/">
+										<Link className="button" to="/" onClick={this.deleteCourse}>
 											Delete Course
 										</Link>
 										<Link className="button button-secondary" to="/">
