@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import Form from "../form";
 
 export default class CreateCourse extends Component {
 	constructor() {
@@ -54,84 +54,77 @@ export default class CreateCourse extends Component {
 			.createCourse(course, username, password)
 			.then((res) => this.props.history.push("/"));
 	};
+
+	cancel = () => {
+		this.props.history.push("/");
+	};
 	render() {
 		return (
 			<div className="bounds course--detail">
 				<h1>Create Course</h1>
-				<div>
-					<form>
-						<div className="grid-66">
-							<div className="course--header">
-								<h4 className="course--label">Course</h4>
-								<div>
-									<input
-										id="title"
-										name="title"
-										type="text"
-										className="input-title course--title--input"
-										placeholder="Please enter a Title..."
-										onChange={this.handleTitle}
-									/>
+				<Form
+					cancel={this.cancel}
+					errors={this.state.errors}
+					submit={this.createCourse}
+					submitButtonText="Update Course"
+					elements={() => (
+						<React.Fragment>
+							<div className="grid-66">
+								<div className="course--header">
+									<h4 className="course--label">Course</h4>
+									<div>
+										<input
+											id="title"
+											name="title"
+											type="text"
+											onChange={this.handleTitle}
+											placeholder="Please enter a title.."
+										/>
+									</div>
 								</div>
-								<p>get signed in users name</p>
-							</div>
-							<div className="course--description">
-								<div>
+								<div className="course--description">
 									<textarea
 										id="description"
 										name="description"
-										className=""
-										placeholder="Please enter a description..."
+										type="text"
 										onChange={this.handleDescription}
-									></textarea>
+										placeholder="Please enter a description..."
+									/>
 								</div>
 							</div>
-						</div>
-						<div className="grid-25 grid-right">
-							<div className="course--stats">
-								<ul className="course--stats--list">
-									<li className="course--stats--list--item">
-										<h4>Estimated Time</h4>
-										<div>
-											<input
-												id="estimatedTime"
-												name="estimatedTime"
-												type="text"
-												className="course--time--input"
-												placeholder="Please Enter the amount of time.."
-												onChange={this.handleTime}
-											/>
-										</div>
-									</li>
-									<li className="course--stats--list--item">
-										<h4>Materials Needed</h4>
-										<div>
-											<textarea
-												id="materialsNeeded"
-												name="materialsNeeded"
-												className=""
-												placeholder="Please enter materials needed..."
-												onChange={this.handleMaterials}
-											></textarea>
-										</div>
-									</li>
-								</ul>
+							<div className="grid-25 grid-right">
+								<div className="course--stats">
+									<ul className="course--stats--list">
+										<li className="course--stats--list--item">
+											<h4>Estimated Time</h4>
+											<div>
+												<input
+													id="estimatedTime"
+													name="estimatedTime"
+													type="text"
+													onChange={this.handleTime}
+													placeholder="Estimated Time"
+												/>
+											</div>
+										</li>
+										<li className="course--stats--list--item">
+											<h4>Materials Needed</h4>
+											<div>
+												<textarea
+													id="materialsNeeded"
+													name="materialsNeeded"
+													type="text"
+													onChange={this.handleMaterials}
+													placeholder="List of Materials.."
+												/>
+											</div>
+										</li>
+									</ul>
+								</div>
 							</div>
-						</div>
-						<div className="grid-100 pad-bottom">
-							<Link
-								className="button"
-								type="submit"
-								onClick={this.createCourse}
-							>
-								Create Course
-							</Link>
-							<Link to={{ pathname: "/" }}>
-								<button className="button button-secondary">Cancel</button>
-							</Link>
-						</div>
-					</form>
-				</div>
+						</React.Fragment>
+					)}
+				/>
 			</div>
 		);
 	}

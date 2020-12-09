@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import Form from "../form";
 
 export default class UserSignUp extends Component {
 	constructor() {
@@ -63,83 +63,66 @@ export default class UserSignUp extends Component {
 			<div className="bounds">
 				<div className="grid-33 centered signin">
 					<h1>Sign Up</h1>
-					<div>
-						<form>
-							<div>
-								<input
-									id="firstName"
-									name="firstName"
-									type="text"
-									className=""
-									placeholder="First Name"
-									// value={values.firstName}
-									onChange={this.handleFirstNameChange}
-								/>
-							</div>
-							<div>
-								<input
-									id="lastName"
-									name="lastName"
-									type="text"
-									className=""
-									placeholder="Last Name"
-									// value={values.lastName}
-									onChange={this.handleLastNameChange}
-								/>
-							</div>
-							<div>
-								<input
-									id="emailAddress"
-									name="emailAddress"
-									type="text"
-									className=""
-									placeholder="Email Address"
-									// value={values.emailAddress}
-									onChange={this.handleEmailChange}
-								/>
-							</div>
-							<div>
-								<input
-									id="password"
-									name="password"
-									type="password"
-									className=""
-									placeholder="Password"
-									// value={values.password}
-									onChange={this.handlePasswordChange}
-								/>
-							</div>
-							<div>
-								<input
-									id="confirmPassword"
-									name="confirmPassword"
-									type="password"
-									className=""
-									placeholder="Confirm Password"
-									// value={values.confirmPass}
-									onChange={this.handleConfirmPasswordChange}
-								/>
-							</div>
-							<div className="grid-100 pad-bottom">
-								<Link
-									className="button"
-									type="submit"
-									to="/"
-									onClick={this.createUser}
-								>
-									Sign Up
-								</Link>
-								<Link className="button button-secondary" to="/">
-									Cancel
-								</Link>
-							</div>
-						</form>
-					</div>
-					<p>&nbsp;</p>
-					<p>
-						Already have a user account? <Link to="/signin">Click here</Link> to
-						sign in!
-					</p>
+					<Form
+						cancel={this.cancel}
+						errors={this.state.errors}
+						submit={this.updateCourse}
+						submitButtonText="Update Course"
+						elements={() => (
+							<React.Fragment>
+								<div>
+									<input
+										id="firstName"
+										name="firstName"
+										type="text"
+										className=""
+										placeholder="First Name"
+										onChange={this.handleFirstNameChange}
+									/>
+								</div>
+								<div>
+									<input
+										id="lastName"
+										name="lastName"
+										type="text"
+										className=""
+										placeholder="Last Name"
+										onChange={this.handleLastNameChange}
+									/>
+								</div>
+								<div>
+									<input
+										id="emailAddress"
+										name="emailAddress"
+										type="text"
+										className=""
+										placeholder="Email Address"
+										onChange={this.handleEmailChange}
+									/>
+								</div>
+								<div>
+									<input
+										id="password"
+										name="password"
+										type="password"
+										className=""
+										placeholder="Password"
+										onChange={this.handlePasswordChange}
+									/>
+								</div>
+								<div>
+									<input
+										id="confirmPassword"
+										name="confirmPassword"
+										type="password"
+										className=""
+										placeholder="Confirm Password"
+										onChange={this.handleConfirmPasswordChange}
+									/>
+								</div>
+							</React.Fragment>
+						)}
+					/>
 				</div>
 			</div>
 		);

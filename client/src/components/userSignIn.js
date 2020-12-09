@@ -27,7 +27,6 @@ export default class UserSignIn extends Component {
 		context.actions
 			.signIn(this.state.emailAddress, this.state.password)
 			.then((res) => {
-				console.log("success");
 				this.props.history.push("/");
 			});
 	};
